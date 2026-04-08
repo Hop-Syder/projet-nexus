@@ -1,0 +1,52 @@
+[
+  {
+    "id": "projet-1",
+    "title": "ART DE VIVRE CABINET PSYCHOLOGIQUE",
+    "thumbnail": "/projet-img/artdevivre.png",
+    "largeImage": "/projet-img/artdevivre.png",
+    "stack": ["HTML5", "CSS3", "JavaScript", "Google Agenda"],
+    "description": "Site vitrine pour un cabinet de psychologie à Cotonou, conçu autour de la prise de rendez-vous et d’un parcours rassurant pour enfants, adolescents, adultes, couples et familles. Le projet met en avant les services, l’approche thérapeutique et un système de rendez-vous connecté à Google Agenda.",
+    "projectUrl": "https://www.cabinetartdevivre.com",
+    "estimatedPrice": "250 000 FCFA"
+  },
+  {
+    "id": "projet-2",
+    "title": "Empreinte Finale",
+    "thumbnail": "/projet-img/empreinte-finale.png",
+    "largeImage": "/projet-img/empreinte-finale.png",
+    "stack": ["HTML5", "CSS3", "JavaScript"],
+    "description": "Site vitrine pour une agence béninoise spécialisée en nettoyage et gestion événementielle. Le projet valorise les prestations avant, pendant et après événement, la décoration, la logistique et la promesse d’un accompagnement clé en main, avec une présentation claire des services, chiffres et témoignages.",
+    "projectUrl": "https://www.empreintefinale.com",
+    "estimatedPrice": "200 000 FCFA"
+  },
+  {
+    "id": "projet-3",
+    "title": "Site Vitrine Corporate",
+    "thumbnail": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80",
+    "largeImage": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
+    "stack": ["WordPress", "Elementor", "SEO"],
+    "description": "Design et intégration d'un site vitrine optimisé SEO, avec animations fluides, formulaire de contact avancé et intégration CRM.",
+    "projectUrl": "https://example.com/corporate",
+    "estimatedPrice": "À partir de 800 €"
+  },
+  {
+    "id": "projet-4",
+    "title": "Application Mobile",
+    "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80",
+    "largeImage": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+    "stack": ["React Native", "Firebase"],
+    "description": "Application mobile cross-platform de suivi sportif : GPS, notifications push et synchronisation cloud temps réel.",
+    "projectUrl": "https://example.com/mobile",
+    "estimatedPrice": "À partir de 2 500 €"
+  },
+  {
+    "id": "projet-5",
+    "title": "Dashboard Analytique",
+    "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
+    "largeImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    "stack": ["Vue.js", "Tailwind", "Chart.js"],
+    "description": "Interface d'administration avec graphiques interactifs pour analyser de larges volumes de données financières en temps réel.",
+    "projectUrl": "https://example.com/dashboard",
+    "estimatedPrice": "À partir de 2 000 €"
+  }
+]
