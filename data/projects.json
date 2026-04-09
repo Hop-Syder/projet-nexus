@@ -1,10 +1,10 @@
 [
   {
     "id": "projet-1",
-    "title": "ART DE VIVRE CABINET PSYCHOLOGIQUE",
+    "title": "ART DE VIVRE ",
     "thumbnail": "/projet-img/artdevivre.png",
     "largeImage": "/projet-img/artdevivre.png",
-    "stack": ["HTML5", "CSS3", "JavaScript", "Google Agenda"],
+    "stack": ["HTML5", "CSS3", "JavaScript", "Google Agenda", "SEO"],
     "description": "Site vitrine pour un cabinet de psychologie à Cotonou, conçu autour de la prise de rendez-vous et d’un parcours rassurant pour enfants, adolescents, adultes, couples et familles. Le projet met en avant les services, l’approche thérapeutique et un système de rendez-vous connecté à Google Agenda.",
     "projectUrl": "https://www.cabinetartdevivre.com",
     "estimatedPrice": "250 000 FCFA"
@@ -14,39 +14,55 @@
     "title": "Empreinte Finale",
     "thumbnail": "/projet-img/empreinte-finale.png",
     "largeImage": "/projet-img/empreinte-finale.png",
-    "stack": ["HTML5", "CSS3", "JavaScript"],
+    "stack": ["HTML5", "CSS3", "JavaScript", "SEO"],
     "description": "Site vitrine pour une agence béninoise spécialisée en nettoyage et gestion événementielle. Le projet valorise les prestations avant, pendant et après événement, la décoration, la logistique et la promesse d’un accompagnement clé en main, avec une présentation claire des services, chiffres et témoignages.",
     "projectUrl": "https://www.empreintefinale.com",
-    "estimatedPrice": "200 000 FCFA"
+    "estimatedPrice": "250 000 FCFA"
   },
   {
     "id": "projet-3",
-    "title": "Site Vitrine Corporate",
-    "thumbnail": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80",
-    "largeImage": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80",
-    "stack": ["WordPress", "Elementor", "SEO"],
-    "description": "Design et intégration d'un site vitrine optimisé SEO, avec animations fluides, formulaire de contact avancé et intégration CRM.",
-    "projectUrl": "https://example.com/corporate",
-    "estimatedPrice": "À partir de 800 €"
+    "title": "AREMS",
+    "thumbnail": "/projet-img/arems.png",
+    "largeImage": "/projet-img/arems.png",
+    "stack": ["Next.js 16", "TypeScript", "GSAP", "Framer Motion", "SEO"],
+    "description": "Expert en labour, essouchage et semis. AREMS garantit une préparation de sol impeccable. Location de tracteurs haute performance et prestations agricoles sur tout le Bénin (Ketou, Cotonou, Porto-Novo, Parakou, etc.).",
+    "projectUrl": "https://arems-frontend.vercel.app",
+    "estimatedPrice": "350 000 FCFA"
   },
   {
     "id": "projet-4",
-    "title": "Application Mobile",
-    "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80",
-    "largeImage": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
-    "stack": ["React Native", "Firebase"],
-    "description": "Application mobile cross-platform de suivi sportif : GPS, notifications push et synchronisation cloud temps réel.",
-    "projectUrl": "https://example.com/mobile",
-    "estimatedPrice": "À partir de 2 500 €"
+    "title": "Vano baby",
+    "thumbnail": "/projet-img/vano-baby.png",
+    "largeImage": "/projet-img/vano-baby.png",
+    "stack": ["Next.js", "TypeScript", "Tailwind CSS"],
+    "description": "Site vitrine pour Vano baby : présentation chaleureuse de l’univers de la marque, mises en page lisibles et appels à l’action clairs pour guider les visiteurs vers la découverte des produits et du positionnement.",
+    "projectUrl": "https://vano-baby-one.vercel.app",
+    "estimatedPrice": "350 000 FCFA"
   },
   {
     "id": "projet-5",
-    "title": "Dashboard Analytique",
-    "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
-    "largeImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-    "stack": ["Vue.js", "Tailwind", "Chart.js"],
-    "description": "Interface d'administration avec graphiques interactifs pour analyser de larges volumes de données financières en temps réel.",
-    "projectUrl": "https://example.com/dashboard",
-    "estimatedPrice": "À partir de 2 000 €"
+    "title": "Parole d'Aîné",
+    "thumbnail": "/projet-img/parole-daine.png",
+    "largeImage": "/projet-img/parole-daine.png",
+    "stack": ["Next.js 16.1.3", "React 19", "TypeScript 5", "Tailwind CSS 4"],
+    "description": "Plateforme e-commerce et créative pour une marque de mode urbaine basée à Abomey-Calavi, Bénin. Le site combine vente de vêtements streetwear, t-shirts, hoodies et accessoires avec une offre de services de design créatif : graphisme, création de logo, identité visuelle et publicité.",
+    "projectUrl": "http://parole-daine.vercel.app/",
+    "estimatedPrice": "350 000 FCFA"
+  },
+  {
+    "id": "projet-6",
+    "title": "Morad Prestation",
+    "thumbnail": "/projet-img/morad-prestation.jpg",
+    "largeImage": "/projet-img/morad-prestation.jpg",
+    "stack": [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Radix UI"
+    ],
+    "description": "Site vitrine Next.js pour une entreprise de BTP au Bénin, centré sur la mise en avant des services de construction, génie civil, terrassement et travaux publics. Le projet présente les réalisations, les équipes et une demande de devis en ligne pour faciliter la prise de contact commerciale.",
+    "projectUrl": "https://moradprestation.vercel.app/",
+    "estimatedPrice": "350 000 FCFA"
   }
 ]

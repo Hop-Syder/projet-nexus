@@ -44,39 +44,34 @@ export function ProjectCard({
   const copy =
     locale === "fr"
       ? {
-          caseStudy: featured ? "Case study 01" : "Case study",
-          featuredLabel: "À la une — Nexus",
-          referenceLabel: "Référence",
-          positioning: "Positionnement",
-          featuredPositioning: "Livrable phare du catalogue",
-          defaultPositioning: "Mission ciblée",
-          open: "Ouvrir",
-          detail: "Voir l’étude de cas",
-          order: "Commander",
-          stack: "Stack",
-          pricing: "Fourchette indicative",
-          openSite: "Ouvrir le site",
-          whatsappMessage: `Bonjour Nexus Partners, je souhaite commander le projet "${project.title}". Pouvez-vous me guider sur la suite ?`,
-          close: "Fermer",
-        }
+        positioning: "Positionnement",
+        featuredPositioning: "Mission ciblée",
+        defaultPositioning: "Mission ciblée",
+        open: "Ouvrir",
+        detail: "Voir l’étude de cas",
+        order: "Commander",
+        stack: "Stack",
+        pricing: "Fourchette indicative",
+        openSite: "Ouvrir le site",
+        whatsappMessage: `Bonjour Nexus Partners, je souhaite commander le projet "${project.title}". Pouvez-vous me guider sur la suite ?`,
+        close: "Fermer",
+      }
       : {
-          caseStudy: featured ? "Case study 01" : "Case study",
-          featuredLabel: "Featured — Nexus",
-          referenceLabel: "Reference",
-          positioning: "Positioning",
-          featuredPositioning: "Lead showcase deliverable",
-          defaultPositioning: "Targeted engagement",
-          open: "Open",
-          detail: "View case study",
-          order: "Order",
-          stack: "Stack",
-          pricing: "Indicative range",
-          openSite: "Open website",
-          whatsappMessage: `Hello Nexus Partners, I would like to order the "${project.title}" project. Could you guide me on the next steps?`,
-          close: "Close",
-        };
+        positioning: "Positioning",
+        featuredPositioning: "Lead showcase deliverable",
+        defaultPositioning: "Targeted engagement",
+        open: "Open",
+        detail: "View case study",
+        order: "Order",
+        stack: "Stack",
+        pricing: "Indicative range",
+        openSite: "Open website",
+        whatsappMessage: `Hello Nexus Partners, I would like to order the "${project.title}" project. Could you guide me on the next steps?`,
+        close: "Close",
+      };
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(copy.whatsappMessage)}`;
+  const isZoomedOutProject = project.id === "projet-2";
 
   return (
     <Dialog>
@@ -88,59 +83,46 @@ export function ProjectCard({
           "transition-shadow duration-300 hover:shadow-[0_12px_48px_-20px_rgba(37,99,235,0.4)]",
           "dark:from-blue-400/28 dark:via-white/10 dark:to-sky-300/18",
           featured &&
-            "md:shadow-[0_16px_56px_-24px_rgba(37,99,235,0.35)] md:ring-1 md:ring-blue-300/20"
+          "md:shadow-[0_16px_56px_-24px_rgba(37,99,235,0.35)] md:ring-1 md:ring-blue-300/20"
         )}
       >
         <Card
-          className={cn(
-            "flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card/85 shadow-none backdrop-blur-md dark:bg-card/75",
-            featured && "md:min-h-[320px]"
-          )}
+          className="flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card/85 shadow-none backdrop-blur-md dark:bg-card/75"
         >
-          <div
-            className={cn(
-              "relative w-full overflow-hidden",
-              featured ? "aspect-[21/9] md:aspect-[2.4/1]" : "aspect-video"
-            )}
-          >
+          <div className="relative aspect-video w-full overflow-hidden bg-slate-950/8">
             <Image
               src={project.thumbnail}
               alt={project.title}
               fill
-              sizes={
-                featured
-                  ? "(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 50vw"
-                  : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-              }
-              className="object-cover transition-[filter,transform] duration-500 ease-out group-hover/shell:scale-[1.03] group-hover/shell:brightness-110 motion-reduce:transition-none motion-reduce:group-hover/shell:scale-100"
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+              className={cn(
+                "transition-[filter,transform] duration-500 ease-out group-hover/shell:brightness-110 motion-reduce:transition-none",
+                isZoomedOutProject
+                  ? "object-contain p-3 group-hover/shell:scale-[1.01] motion-reduce:group-hover/shell:scale-100"
+                  : "object-cover group-hover/shell:scale-[1.03] motion-reduce:group-hover/shell:scale-100"
+              )}
             />
             <div
-              className="absolute inset-x-5 top-5 z-10 flex items-start justify-between gap-3"
+              className="absolute inset-x-5 top-5 z-10 flex items-start justify-end gap-3"
               aria-hidden
             >
-              <span className="rounded-full border border-white/20 bg-slate-950/65 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-100 backdrop-blur-md">
-                {copy.caseStudy}
-              </span>
               <span className="rounded-full border border-white/14 bg-background/55 px-2.5 py-1 text-xs font-medium text-foreground/80 backdrop-blur-md">
                 {project.estimatedPrice}
               </span>
             </div>
             <div
-              className="absolute inset-0 bg-gradient-to-t from-background via-background/28 to-transparent opacity-92 transition-opacity duration-300 group-hover/shell:opacity-100"
+              className="absolute inset-0 bg-gradient-to-t from-background/55 via-background/15 to-transparent opacity-90 transition-opacity duration-300 group-hover/shell:opacity-100"
               aria-hidden
             />
-            <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary drop-shadow-sm">
-                {featured ? copy.featuredLabel : copy.referenceLabel}
-              </p>
-              <p className="font-heading text-lg font-semibold leading-snug text-foreground drop-shadow-sm md:text-xl">
-                {project.title}
-              </p>
-            </div>
           </div>
 
-          <CardHeader className="relative space-y-2 pb-2 pt-5">
-            <CardTitle className="sr-only">{project.title}</CardTitle>
+          <div className="px-4 pt-5">
+            <CardTitle className="font-heading text-lg font-semibold leading-snug md:text-xl">
+              {project.title}
+            </CardTitle>
+          </div>
+
+          <CardHeader className="relative space-y-2 pb-2 pt-3">
             <CardDescription className="line-clamp-3 text-sm leading-relaxed">
               {project.description}
             </CardDescription>
@@ -169,10 +151,15 @@ export function ProjectCard({
                     : copy.defaultPositioning}
                 </p>
               </div>
-              <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+              <a
+                href={project.projectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 transition-colors hover:text-primary/85 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35"
+              >
                 {copy.open}
-                <ArrowUpRight className="size-4" />
-              </span>
+                <ArrowUpRight className="size-4 shrink-0" aria-hidden />
+              </a>
             </div>
           </CardContent>
 
@@ -214,13 +201,15 @@ export function ProjectCard({
         </DialogHeader>
 
         <div className="grid gap-5 py-1">
-          <div className="relative h-56 w-full overflow-hidden rounded-xl sm:h-64">
+          <div className="relative h-56 w-full overflow-hidden rounded-xl bg-slate-950/8 sm:h-64">
             <Image
               src={project.largeImage}
               alt={project.title}
               fill
               sizes="640px"
-              className="object-cover"
+              className={cn(
+                isZoomedOutProject ? "object-contain p-4" : "object-cover"
+              )}
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"

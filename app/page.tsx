@@ -56,8 +56,6 @@ const copy = {
     projectsTitle: "Réalisations & références",
     projectsDescription:
       "Chaque carte ouvre une fiche : visuels, stack technique, budget indicatif, puis accès direct au projet en ligne.",
-    caseStudies: "études de cas",
-    pricingVisible: "pricing visible",
     contactTitle: "Un projet avec Nexus Partners ?",
     contactDescription:
       "Décrivez votre besoin : nous revenons vers vous avec une proposition adaptée, sans engagement.",
@@ -94,8 +92,6 @@ const copy = {
     projectsTitle: "Work & references",
     projectsDescription:
       "Each card opens a profile: visuals, technical stack, indicative budget, then direct access to the live project.",
-    caseStudies: "case studies",
-    pricingVisible: "pricing visible",
     contactTitle: "A project with Nexus Partners?",
     contactDescription:
       "Describe your needs and we will come back with a tailored proposal, with no obligation.",
@@ -166,10 +162,18 @@ const projectTranslations: Record<
   },
   "projet-5": {
     en: {
-      title: "Analytics Dashboard",
+      title: "Parole d'Aîné",
       description:
-        "Admin dashboard with interactive charts to monitor large volumes of financial data in real time.",
-      estimatedPrice: "From €2,000",
+        "E-commerce and creative platform for an urban fashion brand based in Abomey-Calavi, Benin. The website combines streetwear sales, t-shirts, hoodies, and accessories with creative design services including graphic design, logo creation, visual identity, and advertising.",
+      estimatedPrice: "Quote on request",
+    },
+  },
+  "projet-6": {
+    en: {
+      title: "Morad Prestation",
+      description:
+        "Next.js showcase website for a construction company in Benin, focused on construction, civil engineering, earthworks, and public works services. The project highlights completed work, teams, and an online quote request flow to support lead generation.",
+      estimatedPrice: "Quote on request",
     },
   },
 };
@@ -232,7 +236,7 @@ export default function Home() {
         >
           <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-10">
             <div>
-              <p className="mb-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.35em] text-muted-foreground md:text-xs">
+              <p className="mb-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.35em] text-[rgb(255_204_0)] md:text-xs">
                 <span className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
                 {t.eyebrow}
                 <span className="h-px w-8 bg-gradient-to-l from-transparent to-[rgb(255_204_0_/_0.9)]" />
@@ -355,38 +359,21 @@ export default function Home() {
         </section>
 
         <section aria-labelledby="projects-heading" className="scroll-mt-24">
-          <div className="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2
-                id="projects-heading"
-                className="font-heading text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
-              >
-                {t.projectsTitle}
-              </h2>
-              <p className="mt-3 max-w-xl text-base text-muted-foreground md:text-lg">
-                {t.projectsDescription}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <p className="rounded-full border border-[rgb(255_204_0_/_0.28)] bg-[linear-gradient(135deg,rgb(255_204_0_/_0.12),rgb(255_255_255_/_0.04))] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/75 shadow-[0_12px_28px_-20px_rgba(255,204,0,0.55)] backdrop-blur-sm">
-                {localizedProjects.length} {t.caseStudies}
-              </p>
-              <p className="rounded-full border border-[rgb(255_204_0_/_0.28)] bg-[linear-gradient(135deg,rgb(255_204_0_/_0.12),rgb(255_255_255_/_0.04))] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/75 shadow-[0_12px_28px_-20px_rgba(255,204,0,0.55)] backdrop-blur-sm">
-                {t.pricingVisible}
-              </p>
-            </div>
+          <div className="mb-12 md:mb-16">
+            <h2
+              id="projects-heading"
+              className="font-heading text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
+            >
+              {t.projectsTitle}
+            </h2>
+            <p className="mt-3 max-w-xl text-base text-muted-foreground md:text-lg">
+              {t.projectsDescription}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:grid-cols-4 xl:gap-10">
             {localizedProjects.map((project, i) => (
-              <div
-                key={project.id}
-                className={
-                  i === 0
-                    ? "md:col-span-2 xl:col-span-2 xl:row-span-1"
-                    : undefined
-                }
-              >
+              <div key={project.id}>
                 <ProjectCard
                   project={project}
                   featured={i === 0}
