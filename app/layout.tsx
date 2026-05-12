@@ -2,6 +2,7 @@ import { SiteBackground } from "@/components/site-background";
 import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Archivo, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -34,6 +35,22 @@ export default function RootLayout({
       className={`${archivo.variable} ${spaceGrotesk.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-VZ33YTZTTS"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-VZ33YTZTTS');
+          `}
+        </Script>
+      </head>
       <body className="flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
