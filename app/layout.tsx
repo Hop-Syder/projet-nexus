@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nexus-partners.xyz"),
+  metadataBase: new URL("https://projets.nexus-partners.xyz"),
   title: "Nexus Partners — Développeur Web au Bénin & Afrique",
   description:
     "Vous cherchez un développeur africain pour créer votre site web au Bénin ou en Afrique ? Nexus Partners réalise vos projets digitaux premium avec expertise et performance.",
@@ -46,7 +46,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-VZ33YTZTTS"
+          src="/metrics/gtag/js?id=G-VZ33YTZTTS"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -55,8 +55,14 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-VZ33YTZTTS');
-            gtag('config', 'GT-NN6KRTXK');
+            gtag('config', 'G-VZ33YTZTTS', {
+              'transport_url': 'https://projets.nexus-partners.xyz/metrics',
+              'first_party_collection': true
+            });
+            gtag('config', 'GT-NN6KRTXK', {
+              'transport_url': 'https://projets.nexus-partners.xyz/analytics',
+              'first_party_collection': true
+            });
           `}
         </Script>
         <ThemeProvider
