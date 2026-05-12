@@ -45,42 +45,42 @@ export function ProjectCard({
     locale === "fr"
       ? {
         positioning: "Positionnement",
-        featuredPositioning: "Mission ciblée",
-        defaultPositioning: "Mission ciblée",
+        featuredPositioning: "Direction artistique & Stratégie",
+        defaultPositioning: "Expertise ciblée",
         open: "Ouvrir",
         detail: "Voir l’étude de cas",
         order: "Commander",
         stack: "Stack",
-        pricing: "Fourchette indicative",
+        pricing: "Budget indicatif",
         openSite: "Ouvrir le site",
         whatsappMessage: `Bonjour Nexus Partners, je souhaite commander le projet "${project.title}". Pouvez-vous me guider sur la suite ?`,
         close: "Fermer",
       }
       : {
         positioning: "Positioning",
-        featuredPositioning: "Lead showcase deliverable",
-        defaultPositioning: "Targeted engagement",
+        featuredPositioning: "Art Direction & Strategy",
+        defaultPositioning: "Targeted Expertise",
         open: "Open",
         detail: "View case study",
         order: "Order",
         stack: "Stack",
-        pricing: "Indicative range",
+        pricing: "Indicative budget",
         openSite: "Open website",
         whatsappMessage: `Hello Nexus Partners, I would like to order the "${project.title}" project. Could you guide me on the next steps?`,
         close: "Close",
       };
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(copy.whatsappMessage)}`;
-  const isZoomedOutProject = project.id === "projet-2";
+  const imageMode = project.imageMode || "cover";
 
   return (
     <Dialog>
       <div
         className={cn(
-          "group/shell rounded-2xl p-[1px]",
+          "group/shell h-full rounded-2xl p-[1px]",
           "bg-gradient-to-br from-blue-500/45 via-slate-400/20 to-blue-300/18",
           "shadow-[0_0_0_1px_rgba(255,255,255,0.06)]",
-          "transition-shadow duration-300 hover:shadow-[0_12px_48px_-20px_rgba(37,99,235,0.4)]",
+          "transition-all duration-500 hover:shadow-[0_20px_60px_-20px_rgba(37,99,235,0.45)] hover:-translate-y-1",
           "dark:from-blue-400/28 dark:via-white/10 dark:to-sky-300/18",
           featured &&
           "md:shadow-[0_16px_56px_-24px_rgba(37,99,235,0.35)] md:ring-1 md:ring-blue-300/20"
@@ -89,29 +89,30 @@ export function ProjectCard({
         <Card
           className="flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card/85 shadow-none backdrop-blur-md dark:bg-card/75"
         >
-          <div className="relative aspect-video w-full overflow-hidden bg-slate-950/8">
+          <div className="relative aspect-video w-full overflow-hidden bg-slate-950/10">
+            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-transparent via-white/5 to-transparent" />
             <Image
               src={project.thumbnail}
               alt={project.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
               className={cn(
-                "transition-[filter,transform] duration-500 ease-out group-hover/shell:brightness-110 motion-reduce:transition-none",
-                isZoomedOutProject
-                  ? "object-contain p-3 group-hover/shell:scale-[1.01] motion-reduce:group-hover/shell:scale-100"
-                  : "object-cover group-hover/shell:scale-[1.03] motion-reduce:group-hover/shell:scale-100"
+                "transition-[filter,transform] duration-700 ease-out group-hover/shell:brightness-110",
+                imageMode === "contain"
+                  ? "object-contain p-4 group-hover/shell:scale-105"
+                  : "object-cover group-hover/shell:scale-[1.04]"
               )}
             />
             <div
               className="absolute inset-x-5 top-5 z-10 flex items-start justify-end gap-3"
               aria-hidden
             >
-              <span className="rounded-full border border-white/14 bg-background/55 px-2.5 py-1 text-xs font-medium text-foreground/80 backdrop-blur-md">
+              <span className="rounded-full border border-white/14 bg-background/60 px-3 py-1.5 text-[11px] font-bold tracking-tight text-foreground/90 backdrop-blur-lg shadow-lg">
                 {project.estimatedPrice}
               </span>
             </div>
             <div
-              className="absolute inset-0 bg-gradient-to-t from-background/55 via-background/15 to-transparent opacity-90 transition-opacity duration-300 group-hover/shell:opacity-100"
+              className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent opacity-90 transition-opacity duration-300 group-hover/shell:opacity-100"
               aria-hidden
             />
           </div>

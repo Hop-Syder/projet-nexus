@@ -17,7 +17,8 @@
     "stack": ["HTML5", "CSS3", "JavaScript", "SEO"],
     "description": "Site vitrine pour une agence béninoise spécialisée en nettoyage et gestion événementielle. Le projet valorise les prestations avant, pendant et après événement, la décoration, la logistique et la promesse d’un accompagnement clé en main, avec une présentation claire des services, chiffres et témoignages.",
     "projectUrl": "https://www.empreintefinale.com",
-    "estimatedPrice": "250 000 FCFA"
+    "estimatedPrice": "250 000 FCFA",
+    "imageMode": "contain"
   },
   {
     "id": "projet-3",
@@ -64,5 +65,24 @@
     "description": "Site vitrine Next.js pour une entreprise de BTP au Bénin, centré sur la mise en avant des services de construction, génie civil, terrassement et travaux publics. Le projet présente les réalisations, les équipes et une demande de devis en ligne pour faciliter la prise de contact commerciale.",
     "projectUrl": "https://moradprestation.vercel.app/",
     "estimatedPrice": "350 000 FCFA"
+  },
+  {
+    "id": "projet-7",
+    "title": "AfriPlantes",
+    "thumbnail": "/projet-img/afriplantes.png",
+    "largeImage": "/projet-img/afriplantes.png",
+    "stack": [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Supabase",
+      "Framer Motion",
+      "Recharts",
+      "Radix UI"
+    ],
+    "description": "L'Herbier Numérique de l'Afrique. Une plateforme communautaire et encyclopédique dédiée à la préservation et à la valorisation de la flore médicinale africaine. Le projet offre une expérience utilisateur 'Nature Premium' avec une base de données de spécimens détaillés et un dashboard d'administration complet.",
+    "projectUrl": "https://afri-plantes.vercel.app/",
+    "estimatedPrice": "450 000 FCFA"
   }
 ]

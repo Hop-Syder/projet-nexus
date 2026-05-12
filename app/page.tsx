@@ -1,3 +1,13 @@
+/**
+ * @author @hopsyder
+ * @organization Nexus Partners
+ * @description Page d'accueil du catalogue Nexus Partners
+ * @created 2024-05-12
+ * @updated 2024-05-12
+ * 🌐 ceo.nexuspartners.xyz
+ * 📧 daoudaabassichristian@gmail.com
+ */
+// ──────────────────────────────────
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +30,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 const projects = projectsData as Project[];
 const stackCount = new Set(projects.flatMap((project) => project.stack)).size;
@@ -36,71 +47,75 @@ const copy = {
     primaryCta: "Voir le catalogue",
     secondaryCta: "Demander une proposition",
     chips: [
-      "Direction web lisible",
-      "Build rapide",
-      "Preuve par les livrables",
+      "Expertise UI/UX Élite",
+      "Architecture Next.js Performante",
+      "Design System Scalable",
     ],
-    selectedWork: "selected work",
-    sideTitle: "Studio, conseil et exécution.",
+    selectedWork: "travaux sélectionnés",
+    sideTitle: "Stratégie, design et exécution.",
     references: "Références",
-    referencesCaption: "études de cas prêtes à consulter.",
-    stackVisible: "Stack visible",
-    stackCaption: "briques techniques exposées sans flou.",
+    referencesCaption: "études de cas prêtes à l'audit.",
+    stackVisible: "Stack exposée",
+    stackCaption: "technologies de pointe sans compromis.",
     positioning: "Positionnement",
-    positioningTitle: "Une interface qui assume sa valeur.",
+    positioningTitle: "Une signature visuelle forte.",
     positioningPoints: [
-      "01. Promesse claire avant les détails techniques.",
-      "02. Références montrées comme preuve, pas comme galerie.",
-      "03. Contact direct, sans tunnel ni friction inutile.",
+      "01. Stratégie de conversion avant le code.",
+      "02. Preuve par le livrable et la performance.",
+      "03. Excellence opérationnelle et suivi direct.",
     ],
-    projectsTitle: "Réalisations & références",
+    projectsTitle: "Portfolio & Références",
     projectsDescription:
-      "Chaque carte ouvre une fiche : visuels, stack technique, budget indicatif, puis accès direct au projet en ligne.",
-    contactTitle: "Un projet avec Nexus Partners ?",
+      "Chaque réalisation est une démonstration d'expertise : stack moderne, design sur mesure et optimisation SEO.",
+    contactTitle: "Élevez votre projet digital",
     contactDescription:
-      "Décrivez votre besoin : nous revenons vers vous avec une proposition adaptée, sans engagement.",
-    socialTitle: "Contact & réseaux",
-    site: "Site",
+      "Partagez votre vision : nous concevons une proposition stratégique sur mesure sous 48h.",
+    socialTitle: "Écosystème & Contact",
+    site: "Plateforme",
     email: "Email",
-    phone: "Téléphone",
-    hours: "Horaires",
-    hoursValue: "Lun–Ven : 9h00 – 18h00",
+    phone: "Direct",
+    hours: "Disponibilité",
+    hoursValue: "Lun–Ven : 09:00 – 18:00 (GMT+1)",
   },
   en: {
-    eyebrow: "Nexus Partners catalog",
-    availability: "Limited availability for new web engagements",
+    eyebrow: "Nexus Partners Portfolio",
+    availability: "Limited slots for high-end web mandates",
     heroLine1: "Interfaces",
-    heroLine2: "that sell.",
+    heroLine2: "that convert.",
     heroDescription:
-      "The official Nexus Partners showcase: clear navigation, visible technologies, pricing ranges, and execution quality you can assess from the first scroll.",
-    primaryCta: "Browse the catalog",
-    secondaryCta: "Request a proposal",
-    chips: ["Clear web direction", "Fast build", "Proof through deliverables"],
+      "The official Nexus Partners showcase: clear strategic path, visible high-end tech stacks, and premium execution assessed from the first scroll.",
+    primaryCta: "Explore Portfolio",
+    secondaryCta: "Request Strategic Quote",
+    chips: [
+      "Elite UI/UX Expertise",
+      "High-Performance Next.js Build",
+      "Scalable Design Systems",
+    ],
     selectedWork: "selected work",
-    sideTitle: "Studio, advisory and execution.",
+    sideTitle: "Strategy, Design & Execution.",
     references: "References",
-    referencesCaption: "case studies ready to review.",
-    stackVisible: "Visible stack",
-    stackCaption: "technical building blocks shown without blur.",
+    referencesCaption: "case studies ready for review.",
+    stackVisible: "Exposed Stack",
+    stackCaption: "cutting-edge tech blocks without blur.",
     positioning: "Positioning",
     positioningTitle: "An interface that owns its value.",
     positioningPoints: [
-      "01. Clear promise before technical details.",
-      "02. References shown as proof, not as a gallery.",
-      "03. Direct contact, no tunnel and no needless friction.",
+      "01. Conversion strategy before technical details.",
+      "02. Proof through deliverables and performance.",
+      "03. Operational excellence and direct support.",
     ],
-    projectsTitle: "Work & references",
+    projectsTitle: "Work & References",
     projectsDescription:
-      "Each card opens a profile: visuals, technical stack, indicative budget, then direct access to the live project.",
-    contactTitle: "A project with Nexus Partners?",
+      "Each card opens a deep dive: advanced tech stack, custom design, and SEO performance metrics.",
+    contactTitle: "Elevate your digital presence",
     contactDescription:
-      "Describe your needs and we will come back with a tailored proposal, with no obligation.",
-    socialTitle: "Contact & social",
-    site: "Website",
+      "Describe your vision and we will come back with a tailored strategic proposal within 48h.",
+    socialTitle: "Ecosystem & Contact",
+    site: "Platform",
     email: "Email",
-    phone: "Phone",
-    hours: "Hours",
-    hoursValue: "Mon–Fri: 9:00 AM – 6:00 PM",
+    phone: "Direct",
+    hours: "Availability",
+    hoursValue: "Mon–Fri: 9:00 AM – 6:00 PM (GMT+1)",
   },
 } as const;
 
@@ -174,6 +189,14 @@ const projectTranslations: Record<
       description:
         "Next.js showcase website for a construction company in Benin, focused on construction, civil engineering, earthworks, and public works services. The project highlights completed work, teams, and an online quote request flow to support lead generation.",
       estimatedPrice: "Quote on request",
+    },
+  },
+  "projet-7": {
+    en: {
+      title: "AfriPlantes",
+      description:
+        "The Digital Herbarium of Africa. A community and encyclopedic platform dedicated to preserving and promoting African medicinal flora. The project offers a 'Nature Premium' user experience with a detailed specimens database and a complete administration dashboard.",
+      estimatedPrice: "450,000 XOF",
     },
   },
 };
@@ -371,17 +394,37 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:grid-cols-4 xl:gap-10">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+            className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:grid-cols-4 xl:gap-10"
+          >
             {localizedProjects.map((project, i) => (
-              <div key={project.id}>
+              <motion.div
+                key={project.id}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
+              >
                 <ProjectCard
                   project={project}
                   featured={i === 0}
                   locale={locale}
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section
