@@ -1,3 +1,8 @@
+/**
+ * @author @hopsyder
+ * @organization Nexus Partners
+ * @description Composant d'affichage des projets avec détails et commande WhatsApp
+ */
 "use client";
 
 import {
@@ -28,7 +33,7 @@ import {
   MessagesSquare,
   ShoppingCart,
 } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 const whatsappNumber = "2290196701733";
@@ -42,34 +47,6 @@ export function ProjectCard({
   featured?: boolean;
   locale?: "fr" | "en";
 }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   const copy =
     locale === "fr"
       ? {
@@ -105,86 +82,62 @@ export function ProjectCard({
   return (
     <Dialog>
       <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
         className={cn(
           "group/shell h-full rounded-2xl p-[1px]",
-          "bg-gradient-to-br from-blue-500/45 via-slate-400/20 to-blue-300/18",
-          "shadow-[0_0_0_1px_rgba(255,255,255,0.06)]",
-          "transition-shadow duration-500 hover:shadow-[0_20px_60px_-20px_rgba(37,99,235,0.45)]",
-          "dark:from-blue-400/28 dark:via-white/10 dark:to-sky-300/18",
-          featured &&
-          "md:shadow-[0_16px_56px_-24px_rgba(37,99,235,0.35)] md:ring-1 md:ring-blue-300/20"
+          "bg-border/60 hover:bg-primary/40",
+          "transition-all duration-300",
+          featured && "ring-1 ring-primary/20"
         )}
       >
         <Card
-          style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }}
-          className="flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card/85 shadow-none backdrop-blur-md dark:bg-card/75"
+          className="flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card shadow-none dark:bg-card/90"
         >
           <div 
-            style={{ transform: "translateZ(30px)" }}
-            className="relative aspect-video w-full overflow-hidden bg-slate-950/10"
+            className="relative aspect-video w-full overflow-hidden bg-muted"
           >
-            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-transparent via-white/5 to-transparent" />
             <Image
               src={project.thumbnail}
               alt={project.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
               className={cn(
-                "transition-[filter,transform] duration-700 ease-out group-hover/shell:brightness-110",
+                "transition-transform duration-700 ease-out",
                 imageMode === "contain"
                   ? "object-contain p-4 group-hover/shell:scale-105"
-                  : "object-cover group-hover/shell:scale-[1.04]"
+                  : "object-cover group-hover/shell:scale-105"
               )}
             />
             <div
-              className="absolute inset-x-5 top-5 z-10 flex items-start justify-end gap-3"
+              className="absolute inset-x-4 top-4 z-10 flex items-start justify-end gap-3"
               aria-hidden
             >
-              <span className="rounded-lg border border-white/14 bg-background/60 px-3 py-1.5 text-[11px] font-bold tracking-tight text-foreground/90 backdrop-blur-lg shadow-lg">
+              <span className="rounded-lg border border-border/40 bg-background/80 px-2.5 py-1 text-[11px] font-bold tracking-tight text-foreground shadow-sm backdrop-blur-md">
                 {project.estimatedPrice}
               </span>
             </div>
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent opacity-90 transition-opacity duration-300 group-hover/shell:opacity-100"
-              aria-hidden
-            />
           </div>
 
-          <div 
-            style={{ transform: "translateZ(40px)" }}
-            className="px-4 pt-5"
-          >
-            <CardTitle className="font-heading text-lg font-semibold leading-snug md:text-xl">
+          <div className="px-4 pt-5">
+            <h3 className="font-heading text-lg font-semibold leading-snug md:text-xl">
               {project.title}
-            </CardTitle>
+            </h3>
           </div>
 
-          <CardHeader 
-            style={{ transform: "translateZ(30px)" }}
-            className="relative space-y-2 pb-2 pt-3"
-          >
+          <CardHeader className="relative space-y-2 pb-2 pt-3">
             <CardDescription className="line-clamp-3 text-sm leading-relaxed">
               {project.description}
             </CardDescription>
           </CardHeader>
 
-          <CardContent 
-            style={{ transform: "translateZ(20px)" }}
-            className="grow pt-0"
-          >
+          <CardContent className="grow pt-0">
             <div className="flex flex-wrap gap-2">
               {project.stack.map((tech) => (
                 <Badge
                   key={tech}
                   variant="secondary"
-                  className="border border-border/50 bg-muted/50 font-mono text-[10px] uppercase tracking-wide"
+                  className="border border-border/40 bg-muted/50 font-mono text-[10px] uppercase tracking-wide"
                 >
                   {tech}
                 </Badge>
@@ -213,15 +166,12 @@ export function ProjectCard({
             </div>
           </CardContent>
 
-          <CardFooter 
-            style={{ transform: "translateZ(60px)" }}
-            className="mt-auto border-t border-border/40 bg-muted/20"
-          >
+          <CardFooter className="mt-auto border-t border-border/40 bg-muted/20">
             <div className="flex w-full gap-2">
               <DialogTrigger
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "flex-1 cursor-pointer rounded-xl font-medium transition-transform duration-200 hover:brightness-110 active:scale-[0.99] motion-reduce:transition-none motion-reduce:active:scale-100"
+                  "flex-1 cursor-pointer rounded-xl font-medium transition-all duration-200 active:scale-[0.98]"
                 )}
               >
                 {copy.detail}
@@ -232,7 +182,7 @@ export function ProjectCard({
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "cursor-pointer rounded-xl border-primary/25 bg-primary/5 px-3 text-primary hover:bg-primary/10"
+                  "cursor-pointer rounded-xl border-primary/30 bg-primary/5 px-3 text-primary hover:bg-primary/10"
                 )}
               >
                 <MessagesSquare className="size-4" />
