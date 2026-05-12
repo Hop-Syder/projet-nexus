@@ -14,6 +14,9 @@ import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/language-toggle";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ProjectCard } from "@/components/project-card";
+import { ProcessSection } from "@/components/process-section";
+import { OrderSection } from "@/components/order-section";
+import { Preloader } from "@/components/preloader";
 import projectsData from "@/data/projects.json";
 import type { Project } from "@/lib/types/project";
 import {
@@ -30,7 +33,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const projects = projectsData as Project[];
 const stackCount = new Set(projects.flatMap((project) => project.stack)).size;
@@ -209,7 +213,24 @@ export default function Home() {
     const saved = window.localStorage.getItem(localeStorageKey);
     return saved === "en" ? "en" : "fr";
   });
+  const [isLoading, setIsLoading] = useState(true);
   const t = copy[locale];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isLoading]);
+
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -227,7 +248,56 @@ export default function Home() {
   );
 
   return (
-    <div className="relative min-h-screen">
+    <>
+      <AnimatePresence>
+        {isLoading && <Preloader />}
+      </AnimatePresence>
+
+      <div className={cn("relative min-h-screen", isLoading ? "hidden" : "block")}>
+      <div className="grid-pattern pointer-events-none absolute inset-0 -z-10 opacity-[0.4] dark:opacity-[0.2]" />
+
+      {/* Éléments 3D flottants */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <motion.div
+          animate={{
+            y: [0, -20, 0],
+            rotate: [0, 10, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute left-[10%] top-[15%] size-64 rounded-full bg-primary/10 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, 20, 0],
+            rotate: [0, -10, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute right-[15%] top-[20%] size-80 rounded-full bg-blue-400/10 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            x: [0, 15, 0],
+            y: [0, 15, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute bottom-[20%] left-[20%] size-72 rounded-full bg-primary/5 blur-3xl"
+        />
+      </div>
+
       <header className="sticky top-4 z-40 px-4 md:top-6">
         <div className="container mx-auto">
           <div className="flex items-center justify-between gap-4 rounded-2xl border border-border/60 bg-background/70 px-4 py-3 shadow-[0_8px_32px_-12px_rgba(37,99,235,0.2)] backdrop-blur-xl dark:border-white/10 dark:bg-background/55 dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)]">
@@ -265,11 +335,25 @@ export default function Home() {
                 <span className="h-px w-8 bg-gradient-to-l from-transparent to-[rgb(255_204_0_/_0.9)]" />
               </p>
 
-              <div className="inline-flex items-center gap-2 rounded-full border border-[rgb(255_204_0_/_0.28)] bg-[linear-gradient(135deg,rgb(255_204_0_/_0.14),rgb(255_255_255_/_0.02))] px-3 py-1 text-[11px] font-medium text-foreground/80 shadow-[0_10px_30px_-20px_rgba(255,204,0,0.45)] backdrop-blur-xl">
-                <span className="relative flex size-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[rgb(255_204_0_/_0.55)] motion-reduce:hidden" />
-                  <span className="relative inline-flex size-2.5 rounded-full bg-[rgb(255_204_0)]" />
-                </span>
+              <div className="inline-flex items-center gap-2 rounded-xl border border-[rgb(255_204_0_/_0.28)] bg-[linear-gradient(135deg,rgb(255_204_0_/_0.14),rgb(255_255_255_/_0.02))] px-3 py-1 text-[11px] font-medium text-foreground/80 shadow-[0_10px_30px_-20px_rgba(255,204,0,0.45)] backdrop-blur-xl">
+                <div className="relative flex size-3 items-center justify-center">
+                  <svg 
+                    viewBox="0 0 48 48" 
+                    className="size-3 fill-[rgb(255_204_0)]" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M38,4V0h-4v4H14V0h-4v4H0v11.9v4V48h48V19.9v-4V4H38z M44,44H4V19.9h40V44z M4,15.9V8h6v4h4V8h20v4h4V8h6v7.9H4z"></path> 
+                    <rect height="6" width="6" x="7.5" y="24"></rect> 
+                    <rect height="6" width="6" x="16.667" y="24"></rect> 
+                    <rect height="6" width="6" x="25.583" y="24"></rect> 
+                    <rect height="6" width="6" x="34.5" y="24"></rect> 
+                    <rect height="6" width="6" x="7.5" y="33"></rect> 
+                    <rect height="6" width="6" x="16.667" y="33"></rect> 
+                    <rect height="6" width="6" x="25.583" y="33"></rect> 
+                    <rect height="6" width="6" x="34.5" y="33"></rect> 
+                  </svg>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[rgb(255_204_0_/_0.3)] motion-reduce:hidden" />
+                </div>
                 {t.availability}
               </div>
 
@@ -288,14 +372,14 @@ export default function Home() {
               <div className="mt-10 flex flex-wrap items-center gap-4">
                 <a
                   href="#projects-heading"
-                  className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/50 bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[0_18px_45px_-20px_rgba(37,99,235,0.75)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(37,99,235,0.8)]"
+                  className="group inline-flex cursor-pointer items-center gap-2 rounded-xl border border-primary/50 bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[0_18px_45px_-20px_rgba(37,99,235,0.75)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(37,99,235,0.8)]"
                 >
                   {t.primaryCta}
                   <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <a
-                  href="#contact-heading"
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/70 bg-background/65 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/70"
+                  href="#order-section"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border/70 bg-background/65 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/70"
                 >
                   {t.secondaryCta}
                   <ArrowRight className="size-4" />
@@ -306,7 +390,7 @@ export default function Home() {
                 {t.chips.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-border/60 bg-background/55 px-3 py-1.5 text-sm text-muted-foreground backdrop-blur-sm"
+                    className="rounded-xl border border-border/60 bg-background/55 px-3 py-1.5 text-sm text-muted-foreground backdrop-blur-sm"
                   >
                     {item}
                   </span>
@@ -326,7 +410,7 @@ export default function Home() {
                       {t.sideTitle}
                     </p>
                   </div>
-                  <span className="rounded-full border border-[rgb(255_204_0_/_0.3)] bg-[rgb(255_204_0_/_0.12)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[rgb(255_204_0)] shadow-[0_10px_28px_-16px_rgba(255,204,0,0.8)]">
+                  <span className="rounded-xl border border-[rgb(255_204_0_/_0.3)] bg-[rgb(255_204_0_/_0.12)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[rgb(255_204_0)] shadow-[0_10px_28px_-16px_rgba(255,204,0,0.8)]">
                     2026
                   </span>
                 </div>
@@ -381,6 +465,8 @@ export default function Home() {
           </div>
         </section>
 
+        <ProcessSection locale={locale} />
+
         <section aria-labelledby="projects-heading" className="scroll-mt-24">
           <div className="mb-12 md:mb-16">
             <h2
@@ -427,6 +513,8 @@ export default function Home() {
           </motion.div>
         </section>
 
+        <OrderSection locale={locale} />
+
         <section
           aria-labelledby="contact-heading"
           className="relative mt-24 md:mt-32"
@@ -446,7 +534,7 @@ export default function Home() {
               {t.contactDescription}
             </p>
             <Button
-              className="relative mt-8 cursor-pointer rounded-full px-8 shadow-[0_0_24px_-4px_rgba(37,99,235,0.45)]"
+              className="relative mt-8 cursor-pointer rounded-xl px-8 shadow-[0_0_24px_-4px_rgba(37,99,235,0.45)]"
               nativeButton={false}
               render={
                 <a
@@ -472,7 +560,7 @@ export default function Home() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-[rgb(255_204_0_/_0.35)] hover:bg-[rgb(255_204_0_/_0.08)]"
+                        className="inline-flex items-center gap-2 rounded-xl border border-border/60 bg-background/60 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-[rgb(255_204_0_/_0.35)] hover:bg-[rgb(255_204_0_/_0.08)]"
                       >
                         <Icon className="size-4 text-primary" />
                         {label}
@@ -536,5 +624,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

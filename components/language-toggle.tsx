@@ -16,7 +16,7 @@ export function LanguageToggle({
     <Button
       variant="ghost"
       className={cn(
-        "h-8 rounded-full border border-border/60 px-3 font-mono text-[11px] uppercase tracking-[0.18em]",
+        "h-8 rounded-xl border border-border/60 px-3 font-mono text-[11px] uppercase tracking-[0.18em]",
         className
       )}
       aria-label={

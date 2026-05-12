@@ -28,6 +28,7 @@ import {
   MessagesSquare,
   ShoppingCart,
 } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 
 const whatsappNumber = "2290196701733";
@@ -41,6 +42,34 @@ export function ProjectCard({
   featured?: boolean;
   locale?: "fr" | "en";
 }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   const copy =
     locale === "fr"
       ? {
@@ -75,21 +104,32 @@ export function ProjectCard({
 
   return (
     <Dialog>
-      <div
+      <motion.div
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         className={cn(
           "group/shell h-full rounded-2xl p-[1px]",
           "bg-gradient-to-br from-blue-500/45 via-slate-400/20 to-blue-300/18",
           "shadow-[0_0_0_1px_rgba(255,255,255,0.06)]",
-          "transition-all duration-500 hover:shadow-[0_20px_60px_-20px_rgba(37,99,235,0.45)] hover:-translate-y-1",
+          "transition-shadow duration-500 hover:shadow-[0_20px_60px_-20px_rgba(37,99,235,0.45)]",
           "dark:from-blue-400/28 dark:via-white/10 dark:to-sky-300/18",
           featured &&
           "md:shadow-[0_16px_56px_-24px_rgba(37,99,235,0.35)] md:ring-1 md:ring-blue-300/20"
         )}
       >
         <Card
+          style={{ transform: "translateZ(50px)", transformStyle: "preserve-3d" }}
           className="flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card/85 shadow-none backdrop-blur-md dark:bg-card/75"
         >
-          <div className="relative aspect-video w-full overflow-hidden bg-slate-950/10">
+          <div 
+            style={{ transform: "translateZ(30px)" }}
+            className="relative aspect-video w-full overflow-hidden bg-slate-950/10"
+          >
             <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-transparent via-white/5 to-transparent" />
             <Image
               src={project.thumbnail}
@@ -107,7 +147,7 @@ export function ProjectCard({
               className="absolute inset-x-5 top-5 z-10 flex items-start justify-end gap-3"
               aria-hidden
             >
-              <span className="rounded-full border border-white/14 bg-background/60 px-3 py-1.5 text-[11px] font-bold tracking-tight text-foreground/90 backdrop-blur-lg shadow-lg">
+              <span className="rounded-lg border border-white/14 bg-background/60 px-3 py-1.5 text-[11px] font-bold tracking-tight text-foreground/90 backdrop-blur-lg shadow-lg">
                 {project.estimatedPrice}
               </span>
             </div>
@@ -117,19 +157,28 @@ export function ProjectCard({
             />
           </div>
 
-          <div className="px-4 pt-5">
+          <div 
+            style={{ transform: "translateZ(40px)" }}
+            className="px-4 pt-5"
+          >
             <CardTitle className="font-heading text-lg font-semibold leading-snug md:text-xl">
               {project.title}
             </CardTitle>
           </div>
 
-          <CardHeader className="relative space-y-2 pb-2 pt-3">
+          <CardHeader 
+            style={{ transform: "translateZ(30px)" }}
+            className="relative space-y-2 pb-2 pt-3"
+          >
             <CardDescription className="line-clamp-3 text-sm leading-relaxed">
               {project.description}
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="grow pt-0">
+          <CardContent 
+            style={{ transform: "translateZ(20px)" }}
+            className="grow pt-0"
+          >
             <div className="flex flex-wrap gap-2">
               {project.stack.map((tech) => (
                 <Badge
@@ -164,7 +213,10 @@ export function ProjectCard({
             </div>
           </CardContent>
 
-          <CardFooter className="mt-auto border-t border-border/40 bg-muted/20">
+          <CardFooter 
+            style={{ transform: "translateZ(60px)" }}
+            className="mt-auto border-t border-border/40 bg-muted/20"
+          >
             <div className="flex w-full gap-2">
               <DialogTrigger
                 className={cn(
@@ -189,7 +241,7 @@ export function ProjectCard({
             </div>
           </CardFooter>
         </Card>
-      </div>
+      </motion.div>
 
       <DialogContent className="max-h-[90vh] overflow-y-auto border-border/60 bg-card/95 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)] backdrop-blur-2xl sm:max-w-[640px] dark:border-white/10 dark:shadow-[0_24px_80px_-20px_rgba(37,99,235,0.18)]">
         <DialogHeader>
