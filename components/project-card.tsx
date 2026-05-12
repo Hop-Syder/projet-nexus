@@ -171,7 +171,7 @@ export function ProjectCard({
               <DialogTrigger
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "flex-1 cursor-pointer rounded-2xl font-medium transition-all duration-200 active:scale-[0.98]"
+                  "flex-1 cursor-pointer rounded-lg font-medium transition-all duration-200 active:scale-[0.98]"
                 )}
               >
                 {copy.detail}
@@ -182,7 +182,7 @@ export function ProjectCard({
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "cursor-pointer rounded-2xl border-primary/30 bg-primary/5 px-3 text-primary hover:bg-primary/10"
+                  "cursor-pointer rounded-lg border-primary/30 bg-primary/5 px-3 text-primary hover:bg-primary/10"
                 )}
               >
                 <MessagesSquare className="size-4" />
