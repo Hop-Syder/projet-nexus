@@ -19,9 +19,17 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexus-partners.xyz"),
-  title: "Nexus Partners — Catalogue de projets web",
+  title: "Nexus Partners — Développeur Web au Bénin & Afrique",
   description:
-    "Catalogue officiel Nexus Partners : réalisations web, stacks techniques et fourchettes tarifaires (nexus-partners.xyz).",
+    "Vous cherchez un développeur africain pour créer votre site web au Bénin ou en Afrique ? Nexus Partners réalise vos projets digitaux premium avec expertise et performance.",
+  keywords: [
+    "développeur web bénin",
+    "site web bénin",
+    "développeur africain",
+    "création site web afrique",
+    "expert nextjs bénin",
+    "agence digitale cotonou",
+  ],
 };
 
 export default function RootLayout({
@@ -48,6 +56,7 @@ export default function RootLayout({
             gtag('js', new Date());
 
             gtag('config', 'G-VZ33YTZTTS');
+            gtag('config', 'GT-NN6KRTXK');
           `}
         </Script>
       </head>

@@ -16,37 +16,37 @@ import { CheckCircle2, Coffee, Lightbulb, Rocket } from "lucide-react";
 const steps = [
   {
     icon: Lightbulb,
-    title: { fr: "Idéation", en: "Ideation" },
+    title: { fr: "Idéation & Stratégie", en: "Ideation & Strategy" },
     desc: {
-      fr: "Analyse de votre besoin et conception d'une stratégie digitale sur mesure.",
-      en: "Analysis of your needs and design of a tailored digital strategy.",
+      fr: "Chaque grand projet commence par une écoute attentive. En tant que développeur africain au Bénin, nous analysons vos besoins spécifiques, vos objectifs commerciaux et votre audience pour concevoir une stratégie digitale sur mesure qui surpasse la concurrence locale et internationale.",
+      en: "Every great project starts with attentive listening. As an African developer in Benin, we analyze your specific needs, business goals, and audience to design a tailored digital strategy that outperforms local and international competition.",
     },
     color: "bg-blue-500/10 text-blue-500",
   },
   {
     icon: Coffee,
-    title: { fr: "Design", en: "Design" },
+    title: { fr: "Design UX/UI Premium", en: "Premium UX/UI Design" },
     desc: {
-      fr: "Création d'interfaces premium, intuitives et orientées conversion.",
-      en: "Creation of premium, intuitive, and conversion-oriented interfaces.",
+      fr: "Nous ne nous contentons pas de faire du beau ; nous créons des interfaces intuitives qui captivent. Notre approche du design au Bénin allie esthétique moderne et ergonomie, garantissant que chaque visiteur de votre site web en Afrique vive une expérience fluide et mémorable.",
+      en: "We don't just do beauty; we create intuitive interfaces that captivate. Our design approach in Benin combines modern aesthetics and ergonomics, ensuring that every visitor to your website in Africa has a fluid and memorable experience.",
     },
     color: "bg-yellow-500/10 text-yellow-500",
   },
   {
     icon: CheckCircle2,
-    title: { fr: "Développement", en: "Development" },
+    title: { fr: "Développement Haute Performance", en: "High-Performance Development" },
     desc: {
-      fr: "Codage haute performance avec Next.js et les meilleures briques techniques.",
-      en: "High-performance coding with Next.js and the best technical blocks.",
+      fr: "L'excellence technique est notre signature. En utilisant Next.js et React, nous construisons des sites ultra-rapides, sécurisés et optimisés pour le SEO. C'est ici que votre vision prend vie grâce à un code propre, robuste et évolutif, conçu par des experts passionnés.",
+      en: "Technical excellence is our signature. Using Next.js and React, we build ultra-fast, secure, and SEO-optimized sites. This is where your vision comes to life through clean, robust, and scalable code, designed by passionate experts.",
     },
     color: "bg-green-500/10 text-green-500",
   },
   {
     icon: Rocket,
-    title: { fr: "Déploiement", en: "Deployment" },
+    title: { fr: "Déploiement & Accompagnement", en: "Deployment & Support" },
     desc: {
-      fr: "Mise en ligne optimisée, SEO et accompagnement au lancement.",
-      en: "Optimized launch, SEO, and support during the release phase.",
+      fr: "Le lancement n'est que le début. Nous assurons un déploiement sécurisé sur les meilleurs serveurs mondiaux et nous vous accompagnons dans la durée. Notre objectif est de faire de votre présence web un moteur de croissance continue pour votre entreprise en Afrique.",
+      en: "The launch is just the beginning. We ensure a secure deployment on the world's best servers and we support you over time. Our goal is to make your web presence a continuous growth engine for your business in Africa.",
     },
     color: "bg-purple-500/10 text-purple-500",
   },

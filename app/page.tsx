@@ -17,6 +17,7 @@ import { ProjectCard } from "@/components/project-card";
 import { ProcessSection } from "@/components/process-section";
 import { OrderSection } from "@/components/order-section";
 import { Preloader } from "@/components/preloader";
+import { FaqSection } from "@/components/faq-section";
 import projectsData from "@/data/projects.json";
 import type { Project } from "@/lib/types/project";
 import {
@@ -47,7 +48,7 @@ const copy = {
     heroLine1: "Des interfaces",
     heroLine2: "qui vendent.",
     heroDescription:
-      "Le catalogue officiel des réalisations Nexus Partners : parcours clair, technologies affichées, fourchettes tarifaires et niveau d'exécution visible dès le premier scroll.",
+      "Vous cherchez un développeur africain pour créer votre site web au Bénin ou en Afrique ? Découvrez le catalogue Nexus Partners : des solutions web premium, performantes et sur mesure.",
     primaryCta: "Voir le catalogue",
     secondaryCta: "Demander une proposition",
     chips: [
@@ -87,7 +88,7 @@ const copy = {
     heroLine1: "Interfaces",
     heroLine2: "that convert.",
     heroDescription:
-      "The official Nexus Partners showcase: clear strategic path, visible high-end tech stacks, and premium execution assessed from the first scroll.",
+      "Looking for an African developer to create your website in Benin or Africa? Explore the Nexus Partners portfolio: premium, high-performance, and custom web solutions.",
     primaryCta: "Explore Portfolio",
     secondaryCta: "Request Strategic Quote",
     chips: [
@@ -514,6 +515,8 @@ export default function Home() {
         </section>
 
         <OrderSection locale={locale} />
+
+        <FaqSection locale={locale} />
 
         <section
           aria-labelledby="contact-heading"
