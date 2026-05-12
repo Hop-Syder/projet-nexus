@@ -209,7 +209,7 @@ export function ProjectCard({
               fill
               sizes="640px"
               className={cn(
-                isZoomedOutProject ? "object-contain p-4" : "object-cover"
+                imageMode === "contain" ? "object-contain p-4" : "object-cover"
               )}
             />
             <div
