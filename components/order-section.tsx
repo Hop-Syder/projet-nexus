@@ -180,7 +180,7 @@ Description : ${formData.description}`;
                 </div>
 
                 <div className="pt-4">
-                  <Button type="submit" className="w-full h-12 rounded-xl text-base shadow-lg shadow-primary/20">
+                  <Button type="submit" className="w-full h-12 rounded-2xl text-base shadow-lg shadow-primary/20">
                     <MessageCircle className="mr-2 size-5" />
                     {t.submit}
                   </Button>
