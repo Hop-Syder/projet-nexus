@@ -43,7 +43,7 @@ export default function RootLayout({
       className={`${archivo.variable} ${spaceGrotesk.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
+      <body className="flex min-h-full flex-col">
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-VZ33YTZTTS"
@@ -59,8 +59,6 @@ export default function RootLayout({
             gtag('config', 'GT-NN6KRTXK');
           `}
         </Script>
-      </head>
-      <body className="flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
