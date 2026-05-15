@@ -12,11 +12,12 @@ import { Calendar, User, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default async function PostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
