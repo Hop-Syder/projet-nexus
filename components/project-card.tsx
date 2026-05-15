@@ -132,13 +132,23 @@ export function ProjectCard({
         whileHover={{ y: -12 }}
         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
         className={cn(
-          "group/shell relative h-full rounded-xl p-[1px] perspective-[1000px]",
-          "bg-gradient-to-b from-border/50 via-border/20 to-border/50",
-          "hover:from-primary/30 hover:via-primary/10 hover:to-primary/30",
-          "transition-all duration-500",
+          "group/shell relative h-full rounded-xl p-[1.5px] perspective-[1000px] overflow-hidden",
+          "bg-border/20 transition-all duration-500",
           featured && "ring-1 ring-primary/20 shadow-[0_0_40px_-15px_rgba(37,99,235,0.2)]"
         )}
       >
+        {/* Bordure Animée (Rotating Light Yellow) */}
+        <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl opacity-0 group-hover/shell:opacity-100 transition-opacity duration-700">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            style={{
+              background: "conic-gradient(from 0deg, transparent 0 340deg, #FBBF24 360deg)",
+            }}
+            className="absolute inset-[-200%] h-[500%] w-[500%]"
+          />
+        </div>
+
         {/* Spotlight Effect */}
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover/shell:opacity-100"

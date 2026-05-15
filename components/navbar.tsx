@@ -11,7 +11,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, FileText } from "lucide-react";
+import { Home, FileText, Search } from "lucide-react";
 import { LanguageToggle } from "./language-toggle";
 import { ModeToggle } from "./mode-toggle";
 
@@ -83,6 +83,21 @@ export function Navbar() {
 
         {/* Actions Droite */}
         <div className="pointer-events-auto flex items-center gap-2">
+          {/* Recherche / Cmd+K */}
+          <button 
+            onClick={() => {
+              const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
+              document.dispatchEvent(event);
+            }}
+            className="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-xl border border-border/50 bg-background/20 hover:bg-background/40 hover:border-primary/30 transition-all group/search"
+          >
+            <Search className="size-4 text-muted-foreground group-hover/search:text-primary" />
+            <span className="text-[11px] font-mono text-muted-foreground">Rechercher...</span>
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </button>
+
           <LanguageToggle locale={locale} onToggle={handleLanguageToggle} />
           <ModeToggle />
         </div>

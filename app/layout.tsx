@@ -1,5 +1,6 @@
 import { SiteBackground } from "@/components/site-background";
 import { Navbar } from "@/components/navbar";
+import { CommandMenu } from "@/components/command-menu";
 import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Archivo, Space_Grotesk } from "next/font/google";
@@ -118,6 +119,7 @@ export default function RootLayout({
         >
           <SiteBackground />
           <Navbar />
+          <CommandMenu />
           {children}
         </ThemeProvider>
       </body>
