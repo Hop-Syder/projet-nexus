@@ -2,6 +2,7 @@ import { SiteBackground } from "@/components/site-background";
 import { Navbar } from "@/components/navbar";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getAllPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 import { Archivo, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
@@ -83,6 +84,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const posts = getAllPosts().map(post => ({
+    slug: post.slug,
+    title: post.title,
+    category: post.category
+  }));
+
   return (
     <html
       lang="fr"
@@ -119,7 +126,7 @@ export default function RootLayout({
         >
           <SiteBackground />
           <Navbar />
-          <CommandMenu />
+          <CommandMenu posts={posts} />
           {children}
         </ThemeProvider>
       </body>

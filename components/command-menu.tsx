@@ -21,21 +21,16 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import projectsData from "@/data/projects.json";
-import { getAllPosts, BlogPost } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 
-export function CommandMenu() {
+interface CommandMenuProps {
+  posts: { slug: string; title: string; category: string }[];
+}
+
+export function CommandMenu({ posts }: CommandMenuProps) {
   const [open, setOpen] = useState(false);
-  const [posts, setPosts] = useState<BlogPost[]>([]);
   const router = useRouter();
   const { setTheme } = useTheme();
-
-  // Chargement des posts au montage
-  useEffect(() => {
-    // Note: Dans un vrai scénario, on pourrait fetcher cela, mais ici on peut l'importer
-    // car getAllPosts est disponible côté client si configuré
-    setPosts(getAllPosts());
-  }, []);
 
   // Écoute du raccourci clavier
   useEffect(() => {
