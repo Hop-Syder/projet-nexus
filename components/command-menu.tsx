@@ -73,6 +73,14 @@ export function CommandMenu({ posts }: CommandMenuProps) {
             </Command.Empty>
 
             <Command.Group heading="Projets" className="px-2 py-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              <Command.Item
+                onSelect={() => runCommand(() => router.push("/#portfolio"))}
+                className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-primary/10 hover:text-primary transition-colors aria-selected:bg-primary/10 aria-selected:text-primary font-medium text-primary"
+              >
+                <ArrowRight className="h-4 w-4" />
+                <span>Voir tout le Portfolio</span>
+              </Command.Item>
+              
               {projectsData.map((project: any) => (
                 <Command.Item
                   key={project.id}

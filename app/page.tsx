@@ -412,7 +412,7 @@ export default function Home() {
 
         <ProcessSection locale={locale} />
 
-        <section aria-labelledby="projects-heading" className="scroll-mt-24">
+        <section id="portfolio" aria-labelledby="projects-heading" className="scroll-mt-24">
           <div className="mb-12 md:mb-16">
             <h2
               id="projects-heading"

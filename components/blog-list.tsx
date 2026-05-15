@@ -48,42 +48,46 @@ export function BlogList({ posts }: BlogListProps) {
           {/* Contenu de la carte avec fond sombre */}
           <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
             {/* Thumbnail */}
-            <div className="relative aspect-video w-full overflow-hidden border-b border-border/50">
+            <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/50">
               <img 
                 src={post.coverImage} 
                 alt={post.title} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover/blog:scale-110" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover/blog:scale-110" 
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-60" />
               {/* Badge Catégorie */}
-              <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-background/80 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/20">
+              <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/20 shadow-lg">
                 {post.category}
               </div>
             </div>
 
-            <div className="p-8 flex flex-col h-full">
-              <div className="space-y-4 flex-grow">
-                <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
+            <div className="p-7 flex flex-col h-full">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
                   <span className="flex items-center gap-1.5">
-                    <Calendar className="size-3.5" />
+                    <Calendar className="size-3" />
                     {post.date}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <User className="size-3.5" />
+                    <User className="size-3" />
                     {post.author}
                   </span>
                 </div>
 
-                <h2 className="text-xl font-bold group-hover:text-primary transition-colors leading-tight">
+                <h2 className="text-xl font-bold group-hover/blog:text-primary transition-colors leading-snug">
                   {post.title}
                 </h2>
-                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                <p className="text-sm text-muted-foreground/80 leading-relaxed line-clamp-2">
                   {post.excerpt}
                 </p>
               </div>
 
-              <div className="pt-6 mt-auto flex items-center gap-2 text-sm font-bold text-primary">
-                Lire l'article
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              <div className="pt-6 flex items-center gap-2 text-sm font-bold text-primary group/link">
+                <span className="relative">
+                  Lire l'article
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
+                </span>
+                <ArrowRight className="size-4 transition-transform group-hover/link:translate-x-1" />
               </div>
             </div>
           </div>
