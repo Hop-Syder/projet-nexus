@@ -62,28 +62,29 @@ export function BlogList({ posts }: BlogListProps) {
 
             <div className="p-8 flex flex-col h-full">
               <div className="space-y-4 flex-grow">
-              <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="size-3.5" />
-                  {post.date}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <User className="size-3.5" />
-                  {post.author}
-                </span>
+                <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="size-3.5" />
+                    {post.date}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <User className="size-3.5" />
+                    {post.author}
+                  </span>
+                </div>
+
+                <h2 className="text-xl font-bold group-hover:text-primary transition-colors leading-tight">
+                  {post.title}
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                  {post.excerpt}
+                </p>
               </div>
 
-              <h2 className="text-xl font-bold group-hover:text-primary transition-colors leading-tight">
-                {post.title}
-              </h2>
-              <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                {post.excerpt}
-              </p>
-            </div>
-
-            <div className="pt-6 mt-auto flex items-center gap-2 text-sm font-bold text-primary">
-              Lire l'article
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              <div className="pt-6 mt-auto flex items-center gap-2 text-sm font-bold text-primary">
+                Lire l'article
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </div>
             </div>
           </div>
         </Link>
