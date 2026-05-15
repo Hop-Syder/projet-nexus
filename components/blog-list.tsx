@@ -82,7 +82,7 @@ export function BlogList({ posts }: BlogListProps) {
                 </p>
               </div>
 
-              <div className="pt-4 flex items-center gap-2 text-sm font-bold text-primary group/link">
+              <div className="pt-4 mt-auto flex items-center gap-2 text-sm font-bold text-primary group/link">
                 <span className="relative">
                   Lire l'article
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
