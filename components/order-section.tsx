@@ -3,7 +3,7 @@
  * @organization Nexus Partners
  * @description Section formulaire de commande pour Nexus Partners
  * @created 2024-05-12
- * @updated 2024-05-12
+ * @updated 2024-05-14
  * 🌐 ceo.nexuspartners.xyz
  * 📧 daoudaabassichristian@gmail.com
  */
@@ -94,7 +94,7 @@ Description : ${formData.description}`;
     <section id="order-section" className="py-24 scroll-mt-24">
       <div className="mx-auto max-w-4xl">
         <div className="mb-16 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
             <Sparkles className="size-3" />
             {locale === "fr" ? "Prêt à passer à l'action ?" : "Ready to act?"}
           </div>
@@ -111,7 +111,7 @@ Description : ${formData.description}`;
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <Card className="overflow-hidden border-border/60 bg-card/50 backdrop-blur-xl dark:bg-card/30">
+          <Card className="overflow-hidden rounded-xl border-border/60 bg-card/50 shadow-2xl backdrop-blur-xl dark:bg-card/30">
             <CardContent className="p-8 md:p-12">
               <form onSubmit={handleSubmit} className="grid gap-6">
                 <div className="grid gap-6 md:grid-cols-2">
@@ -136,7 +136,7 @@ Description : ${formData.description}`;
                         required
                         value={formData.projectType}
                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="flex h-9 w-full rounded-xl border border-input bg-background/50 px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer"
+                        className="flex h-10 w-full rounded-lg border border-input bg-background/50 px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 appearance-none cursor-pointer"
                       >
                         <option value="" disabled>{t.placeholderType}</option>
                         {projectTypes[locale].map((type) => (

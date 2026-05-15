@@ -32,9 +32,14 @@ import {
   ExternalLink,
   MessagesSquare,
   ShoppingCart,
+  Target,
+  Zap,
+  BarChart3,
+  Globe,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
+import { MouseEvent } from "react";
 
 const whatsappNumber = "2290196701733";
 
@@ -61,6 +66,9 @@ export function ProjectCard({
         openSite: "Ouvrir le site",
         whatsappMessage: `Bonjour Nexus Partners, je souhaite commander le projet "${project.title}". Pouvez-vous me guider sur la suite ?`,
         close: "Fermer",
+        problem: "Le Défi",
+        solution: "Notre Solution",
+        impact: "Résultat & Impact",
       }
       : {
         positioning: "Positioning",
@@ -74,25 +82,95 @@ export function ProjectCard({
         openSite: "Open website",
         whatsappMessage: `Hello Nexus Partners, I would like to order the "${project.title}" project. Could you guide me on the next steps?`,
         close: "Close",
+        problem: "The Challenge",
+        solution: "Our Solution",
+        impact: "Result & Impact",
       };
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(copy.whatsappMessage)}`;
   const imageMode = project.imageMode || "cover";
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = clientX - left;
+    const y = clientY - top;
+    
+    mouseX.set(x);
+    mouseY.set(y);
+
+    const xPct = x / width - 0.5;
+    const yPct = y / height - 0.5;
+    
+    rotateX.set(yPct * -10);
+    rotateY.set(xPct * 10);
+  }
+
+  function handleMouseLeave() {
+    rotateX.set(0);
+    rotateY.set(0);
+  }
+
+  const rotateXSpring = useSpring(0, { stiffness: 150, damping: 20 });
+  const rotateYSpring = useSpring(0, { stiffness: 150, damping: 20 });
+  
+  const rotateX = useTransform(rotateXSpring, (v) => v);
+  const rotateY = useTransform(rotateYSpring, (v) => v);
+
   return (
     <Dialog>
       <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        whileHover={{ y: -12 }}
+        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
         className={cn(
-          "group/shell h-full rounded-2xl p-[1px]",
-          "bg-border/60 hover:bg-primary/40",
-          "transition-all duration-300",
-          featured && "ring-1 ring-primary/20"
+          "group/shell relative h-full rounded-xl p-[1px] perspective-[1000px]",
+          "bg-gradient-to-b from-border/50 via-border/20 to-border/50",
+          "hover:from-primary/30 hover:via-primary/10 hover:to-primary/30",
+          "transition-all duration-500",
+          featured && "ring-1 ring-primary/20 shadow-[0_0_40px_-15px_rgba(37,99,235,0.2)]"
         )}
       >
+        {/* Spotlight Effect */}
+        <motion.div
+          className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover/shell:opacity-100"
+          style={{
+            background: useMotionTemplate`
+              radial-gradient(
+                450px circle at ${mouseX}px ${mouseY}px,
+                var(--primary),
+                transparent 80%
+              )
+            `,
+            maskImage: useMotionTemplate`
+              radial-gradient(
+                450px circle at ${mouseX}px ${mouseY}px,
+                black,
+                transparent 80%
+              )
+            `,
+            WebkitMaskImage: useMotionTemplate`
+              radial-gradient(
+                450px circle at ${mouseX}px ${mouseY}px,
+                black,
+                transparent 80%
+              )
+            `,
+          }}
+          aria-hidden="true"
+        />
+
         <Card
-          className="flex h-full flex-col overflow-hidden rounded-[15px] border-0 bg-card shadow-none dark:bg-card/90"
+          style={{ transform: "translateZ(20px)" }}
+          className="relative flex h-full flex-col overflow-hidden rounded-[11px] border-0 bg-card/95 shadow-none backdrop-blur-sm transition-colors duration-500 group-hover/shell:bg-card/98 dark:bg-card/90"
         >
           <div 
             className="relative aspect-video w-full overflow-hidden bg-muted"
@@ -126,9 +204,14 @@ export function ProjectCard({
           </div>
 
           <CardHeader className="relative space-y-2 pb-2 pt-3">
-            <CardDescription className="line-clamp-3 text-sm leading-relaxed">
+            <CardDescription className="line-clamp-2 text-sm leading-relaxed">
               {project.description}
             </CardDescription>
+            <div className="mt-1">
+              <Badge variant="outline" className="border-primary/20 bg-primary/5 text-[10px] font-semibold text-primary">
+                {project.category}
+              </Badge>
+            </div>
           </CardHeader>
 
           <CardContent className="grow pt-0">
@@ -137,7 +220,7 @@ export function ProjectCard({
                 <Badge
                   key={tech}
                   variant="secondary"
-                  className="border border-border/40 bg-muted/50 font-mono text-[10px] uppercase tracking-wide"
+                  className="rounded-md border border-border/40 bg-muted/30 font-mono text-[9px] uppercase tracking-wider transition-colors group-hover/shell:bg-primary/5 group-hover/shell:text-primary"
                 >
                   {tech}
                 </Badge>
@@ -158,10 +241,10 @@ export function ProjectCard({
                 href={project.projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 transition-colors hover:text-primary/85 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-8 transition-all hover:gap-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35"
               >
                 {copy.open}
-                <ArrowUpRight className="size-4 shrink-0" aria-hidden />
+                <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover/shell:translate-x-0.5 group-hover/shell:-translate-y-0.5" aria-hidden />
               </a>
             </div>
           </CardContent>
@@ -171,7 +254,7 @@ export function ProjectCard({
               <DialogTrigger
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "flex-1 cursor-pointer rounded-lg font-medium transition-all duration-200 active:scale-[0.98]"
+                  "flex-1 cursor-pointer rounded-lg font-semibold transition-all duration-300 active:scale-[0.95] shadow-lg shadow-primary/10 hover:shadow-primary/20"
                 )}
               >
                 {copy.detail}
@@ -220,21 +303,42 @@ export function ProjectCard({
             />
           </div>
 
-          <div>
-            <h4 className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              {copy.stack}
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="outline"
-                  className="border-primary/25 bg-primary/5"
-                >
-                  {tech}
-                </Badge>
-              ))}
-            </div>
+          <div className="grid gap-6 py-4">
+            {project.problem && (
+              <div className="space-y-2">
+                <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
+                  <Target className="size-4" />
+                  {copy.problem}
+                </h4>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {project.problem}
+                </p>
+              </div>
+            )}
+
+            {project.solution && (
+              <div className="space-y-2">
+                <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
+                  <Zap className="size-4" />
+                  {copy.solution}
+                </h4>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {project.solution}
+                </p>
+              </div>
+            )}
+
+            {project.impact && (
+              <div className="space-y-2">
+                <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-green-500">
+                  <BarChart3 className="size-4" />
+                  {copy.impact}
+                </h4>
+                <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-4 text-sm font-medium text-foreground/90">
+                  {project.impact}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-4 rounded-xl border border-primary/25 bg-gradient-to-br from-primary/15 to-primary/5 p-5">

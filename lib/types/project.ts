@@ -11,10 +11,15 @@
 export interface Project {
   id: string;
   title: string;
+  category: string; // ex: "SaaS", "E-commerce"
   thumbnail: string;
   largeImage: string;
+  gallery?: string[];
   stack: string[];
   description: string;
+  problem?: string;
+  solution?: string;
+  impact?: string;
   projectUrl: string;
   estimatedPrice: string;
   imageMode?: "cover" | "contain";

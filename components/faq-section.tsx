@@ -3,7 +3,7 @@
  * @organization Nexus Partners
  * @description Section FAQ optimisée pour le SEO (Bénin, Afrique, Développeur Africain)
  * @created 2024-05-12
- * @updated 2024-05-12
+ * @updated 2024-05-14
  * 🌐 ceo.nexuspartners.xyz
  * 📧 daoudaabassichristian@gmail.com
  */
@@ -86,7 +86,7 @@ export function FaqSection({ locale = "fr" }: { locale?: "fr" | "en" }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="rounded-2xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm"
+            className="rounded-xl border border-border/50 bg-card/30 p-6 shadow-md transition-all hover:border-primary/20 hover:shadow-lg dark:bg-card/20"
           >
             <div className="flex gap-4">
               <HelpCircle className="size-6 shrink-0 text-primary" />

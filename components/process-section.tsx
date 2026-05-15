@@ -3,7 +3,7 @@
  * @organization Nexus Partners
  * @description Section décrivant le processus de travail de Nexus Partners
  * @created 2024-05-12
- * @updated 2024-05-12
+ * @updated 2024-05-14
  * 🌐 ceo.nexuspartners.xyz
  * 📧 daoudaabassichristian@gmail.com
  */
@@ -81,7 +81,7 @@ export function ProcessSection({ locale = "fr" }: { locale?: "fr" | "en" }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="group relative rounded-xl border border-border/50 bg-card/50 p-8 transition-all hover:border-primary/30 hover:shadow-lg dark:bg-card/30"
+            className="group relative rounded-xl border border-border/50 bg-card/50 p-8 shadow-md transition-all hover:border-primary/30 hover:shadow-xl dark:bg-card/20"
           >
             <div
               className={`mb-6 flex size-12 items-center justify-center rounded-xl ${step.color}`}

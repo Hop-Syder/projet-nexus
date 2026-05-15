@@ -1,33 +1,34 @@
 /**
- * Arrière-plan de test : prototypes volontairement très visibles.
+ * @author @hopsyder
+ * @organization Nexus Partners
+ * @description Arrière-plan premium avec gradients dynamiques et motifs de grille
+ * @updated 2024-05-14
  */
 export function SiteBackground() {
   return (
     <div
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-background transition-colors"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-background transition-colors duration-700"
       aria-hidden
     >
-      <div
-        className="absolute inset-0 opacity-95 dark:hidden"
-        style={{
-          backgroundImage: 'url("/background-prototypes/slate-bone-yellow.svg")',
-          backgroundPosition: "center top",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      />
+      {/* Grille de fond subtile */}
+      <div className="grid-pattern absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" />
 
-      <div
-        className="absolute inset-0 hidden opacity-78 dark:block"
-        style={{
-          backgroundImage: 'url("/background-prototypes/obsidian-cyan-gold.svg"), url("/background-prototypes/midnight-teal-copper.svg"), url("/background-prototypes/charcoal-indigo-lime.svg")',
-          backgroundPosition: "right top, left bottom, right bottom",
-          backgroundRepeat: "no-repeat, no-repeat, no-repeat",
-          backgroundSize: "52vw auto, 48vw auto, 50vw auto",
-        }}
-      />
+      {/* Gradients de marque - Mode Clair */}
+      <div className="absolute inset-0 dark:hidden">
+        <div className="absolute -left-[10%] top-0 h-[60vh] w-[40vw] rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute -right-[5%] top-[20%] h-[50vh] w-[30vw] rounded-full bg-accent/8 blur-[100px]" />
+        <div className="absolute bottom-0 left-[20%] h-[40vh] w-[50vw] rounded-full bg-primary/5 blur-[120px]" />
+      </div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(248,250,252,0.06),rgba(15,23,42,0.08))] dark:bg-[linear-gradient(180deg,rgba(11,16,32,0.14),rgba(11,16,32,0.26))]" />
+      {/* Gradients de marque - Mode Sombre */}
+      <div className="absolute inset-0 hidden dark:block">
+        <div className="absolute -left-[15%] -top-[10%] h-[70vh] w-[50vw] rounded-full bg-primary/12 blur-[140px]" />
+        <div className="absolute -right-[10%] top-[10%] h-[60vh] w-[40vw] rounded-full bg-accent/5 blur-[120px]" />
+        <div className="absolute bottom-0 left-[10%] h-[50vh] w-[60vw] rounded-full bg-primary/8 blur-[140px]" />
+      </div>
+
+      {/* Overlay de grain pour texture premium */}
+      <div className="absolute inset-0 bg-noise opacity-[0.015] mix-blend-overlay" />
     </div>
   );
 }
