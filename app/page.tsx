@@ -223,7 +223,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // Réduit de 5s à 1.5s pour une meilleure UX
+    }, 3500); // Augmenté à 3.5s pour une entrée plus immersive
     return () => clearTimeout(timer);
   }, []);
 

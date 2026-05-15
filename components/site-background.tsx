@@ -9,12 +9,12 @@ import { motion } from "framer-motion";
  * @updated 2024-05-15
  */
 const techIcons = [
-  { src: "/background-prototypes/availability-svgrepo-com.svg", pos: { top: "12%", left: "8%" }, size: 110, duration: 25 },
-  { src: "/background-prototypes/cloud-acceleration-svgrepo-com.svg", pos: { top: "45%", right: "12%" }, size: 140, duration: 30 },
-  { src: "/background-prototypes/dns-svgrepo-com.svg", pos: { bottom: "18%", left: "15%" }, size: 90, duration: 22 },
-  { src: "/background-prototypes/host-record-svgrepo-com.svg", pos: { top: "25%", right: "25%" }, size: 120, duration: 28 },
-  { src: "/background-prototypes/intelligent-positioning-svgrepo-com.svg", pos: { bottom: "35%", left: "5%" }, size: 100, duration: 35 },
-  { src: "/background-prototypes/safe-and-stable-svgrepo-com.svg", pos: { bottom: "8%", right: "6%" }, size: 130, duration: 20 },
+  { src: "/background-prototypes/availability-svgrepo-com.svg", pos: { top: "5%", left: "30%" }, size: 90, duration: 32 },
+  { src: "/background-prototypes/cloud-acceleration-svgrepo-com.svg", pos: { top: "45%", right: "2%" }, size: 160, duration: 40 },
+  { src: "/background-prototypes/dns-svgrepo-com.svg", pos: { bottom: "12%", right: "40%" }, size: 100, duration: 25 },
+  { src: "/background-prototypes/host-record-svgrepo-com.svg", pos: { top: "60%", left: "8%" }, size: 130, duration: 35 },
+  { src: "/background-prototypes/intelligent-positioning-svgrepo-com.svg", pos: { bottom: "45%", right: "15%" }, size: 110, duration: 30 },
+  { src: "/background-prototypes/safe-and-stable-svgrepo-com.svg", pos: { top: "15%", right: "25%" }, size: 120, duration: 28 },
 ];
 
 export function SiteBackground() {
@@ -24,11 +24,15 @@ export function SiteBackground() {
       aria-hidden
     >
       {/* Image de Fond Principale (Prototype) */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.12] dark:opacity-[0.2] mix-blend-overlay"
+        style={{ backgroundImage: "url('/background-prototypes/background.jpg')" }}
+      />
 
       {/* Grille de fond subtile */}
       <div className="grid-pattern absolute inset-0 opacity-[0.02] dark:opacity-[0.04]" />
 
-      {/* Orbes de lumière animés - Partagés (Opacité réduite pour laisser l'image paraître) */}
+      {/* Orbes de lumière animés - Partagés */}
       <div className="absolute inset-0">
         {/* Orbe Primaire - Mouvement en 8 */}
         <motion.div
@@ -76,7 +80,7 @@ export function SiteBackground() {
       </div>
 
       {/* Éléments Technologiques Flottants (SVG Prototypes) */}
-      <div className="absolute inset-0 opacity-[0.12] dark:opacity-[0.22]">
+      <div className="absolute inset-0 opacity-[0.15] dark:opacity-[0.25]">
         {techIcons.map((icon, index) => (
           <motion.img
             key={index}
@@ -91,10 +95,10 @@ export function SiteBackground() {
               filter: "none",
             }}
             animate={{
-              y: [0, -35, 0],
-              x: [0, 20, 0],
-              rotate: [0, 10, 0],
-              opacity: [0.7, 1, 0.7],
+              y: [0, -50, 0],
+              x: [0, 30, 0],
+              rotate: [0, 20, 0],
+              opacity: [0.6, 1, 0.6],
             }}
             transition={{
               duration: icon.duration,
