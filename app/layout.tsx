@@ -1,4 +1,5 @@
 import { SiteBackground } from "@/components/site-background";
+import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Archivo, Space_Grotesk } from "next/font/google";
@@ -116,6 +117,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SiteBackground />
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>

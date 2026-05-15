@@ -266,31 +266,7 @@ export default function Home() {
         <div className="absolute right-[10%] top-[10%] size-80 rounded-full bg-accent/5 blur-3xl" />
       </div>
 
-      <header className="sticky top-4 z-40 px-4 md:top-6">
-        <div className="container mx-auto">
-          <div className="flex items-center justify-between gap-4 rounded-xl border border-border/60 bg-background/70 px-4 py-3 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-background/55">
-            <div className="flex items-center rounded-lg border border-accent/20 bg-accent/10 px-2 py-1">
-              <Image
-                src="/logo.png"
-                alt="Nexus Partners"
-                width={44}
-                height={44}
-                className="h-11 w-auto"
-                priority
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <LanguageToggle
-                locale={locale}
-                onToggle={() => setLocale(locale === "fr" ? "en" : "fr")}
-              />
-              <ModeToggle />
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="relative z-10 container mx-auto px-4 pb-24 pt-10 md:pt-14 lg:pt-16">
+      <main className="relative z-10 container mx-auto px-4 pb-24 pt-32 md:pt-40 lg:pt-48">
         <section
           aria-labelledby="hero-heading"
           className="mb-20 md:mb-28 lg:mb-36"
