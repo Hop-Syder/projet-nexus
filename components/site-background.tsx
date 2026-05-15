@@ -8,6 +8,15 @@ import { motion } from "framer-motion";
  * @description Arrière-plan premium avec orbes de lumière "Aurora" animés
  * @updated 2024-05-15
  */
+const techIcons = [
+  { src: "/background-prototypes/availability-svgrepo-com.svg", pos: { top: "15%", left: "10%" }, size: 120, duration: 25 },
+  { src: "/background-prototypes/cloud-acceleration-svgrepo-com.svg", pos: { top: "25%", right: "15%" }, size: 150, duration: 30 },
+  { src: "/background-prototypes/dns-svgrepo-com.svg", pos: { bottom: "20%", left: "15%" }, size: 100, duration: 22 },
+  { src: "/background-prototypes/host-record-svgrepo-com.svg", pos: { bottom: "10%", right: "10%" }, size: 130, duration: 28 },
+  { src: "/background-prototypes/intelligent-positioning-svgrepo-com.svg", pos: { top: "50%", left: "5%" }, size: 90, duration: 35 },
+  { src: "/background-prototypes/safe-and-stable-svgrepo-com.svg", pos: { top: "40%", right: "5%" }, size: 110, duration: 20 },
+];
+
 export function SiteBackground() {
   return (
     <div
@@ -16,6 +25,35 @@ export function SiteBackground() {
     >
       {/* Grille de fond subtile */}
       <div className="grid-pattern absolute inset-0 opacity-[0.02] dark:opacity-[0.04]" />
+
+      {/* Éléments Technologiques Flottants (SVG Prototypes) */}
+      <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] grayscale invert dark:invert-0">
+        {techIcons.map((icon, index) => (
+          <motion.img
+            key={index}
+            src={icon.src}
+            alt=""
+            style={{
+              position: "absolute",
+              width: icon.size,
+              height: icon.size,
+              ...icon.pos,
+              filter: "blur(2px)",
+            }}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              rotate: [0, 10, 0],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: icon.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
 
       {/* Orbes de lumière animés - Partagés */}
       <div className="absolute inset-0">
