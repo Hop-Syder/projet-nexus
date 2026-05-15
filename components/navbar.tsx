@@ -95,10 +95,25 @@ export function Navbar() {
             </kbd>
           </button>
 
-          <LanguageToggle locale={locale} onToggle={handleLanguageToggle} />
+          <div className="hidden md:block">
+            <LanguageToggle locale={locale} onToggle={handleLanguageToggle} />
+          </div>
           <ModeToggle />
         </div>
       </div>
+
+      {/* Mobile Language Toggle - Floating Middle Left */}
+      <motion.div 
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        className="fixed left-0 top-1/2 -translate-y-1/2 z-[60] md:hidden pointer-events-auto"
+      >
+        <LanguageToggle 
+          locale={locale} 
+          onToggle={handleLanguageToggle} 
+          className="rounded-l-none border-l-0 bg-background/40 backdrop-blur-xl shadow-[0_0_20px_rgba(0,0,0,0.1)] h-12 px-4 border-y border-r border-border/40 hover:bg-background/60 transition-all active:scale-95"
+        />
+      </motion.div>
     </nav>
   );
 }

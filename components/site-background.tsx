@@ -26,35 +26,6 @@ export function SiteBackground() {
       {/* Grille de fond subtile */}
       <div className="grid-pattern absolute inset-0 opacity-[0.02] dark:opacity-[0.04]" />
 
-      {/* Éléments Technologiques Flottants (SVG Prototypes) */}
-      <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] grayscale invert dark:invert-0">
-        {techIcons.map((icon, index) => (
-          <motion.img
-            key={index}
-            src={icon.src}
-            alt=""
-            style={{
-              position: "absolute",
-              width: icon.size,
-              height: icon.size,
-              ...icon.pos,
-              filter: "blur(2px)",
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 20, 0],
-              rotate: [0, 10, 0],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: icon.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-
       {/* Orbes de lumière animés - Partagés */}
       <div className="absolute inset-0">
         {/* Orbe Primaire - Mouvement en 8 */}
@@ -115,6 +86,36 @@ export function SiteBackground() {
           }}
           className="absolute right-[10%] bottom-[20%] h-[40vh] w-[30vw] rounded-full bg-indigo-500/5 blur-[100px] dark:bg-indigo-500/8"
         />
+      </div>
+
+      {/* Éléments Technologiques Flottants (SVG Prototypes) - Déplacés en avant-plan du fond */}
+      <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.18]">
+        {techIcons.map((icon, index) => (
+          <motion.img
+            key={index}
+            src={icon.src}
+            alt=""
+            className="grayscale invert dark:invert-0 brightness-0 dark:brightness-100"
+            style={{
+              position: "absolute",
+              width: icon.size,
+              height: icon.size,
+              ...icon.pos,
+              filter: "none", // Suppression du flou pour visibilité maximale
+            }}
+            animate={{
+              y: [0, -40, 0],
+              x: [0, 25, 0],
+              rotate: [0, 15, 0],
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{
+              duration: icon.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
       </div>
 
       {/* Overlay de grain pour texture premium */}
