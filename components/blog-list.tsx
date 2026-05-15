@@ -31,7 +31,7 @@ export function BlogList({ posts }: BlogListProps) {
         <Link 
           key={post.slug} 
           href={`/blog/${post.slug}`}
-          className="group/blog relative flex flex-col h-full rounded-2xl p-[1.5px] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-2"
+          className="group/blog relative flex flex-col rounded-2xl p-[1.5px] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-2"
         >
           {/* Bordure Animée (Rotating Light Yellow) */}
           <div className="absolute inset-0 -z-10 overflow-hidden rounded-2xl opacity-0 group-hover/blog:opacity-100 transition-opacity duration-700">
@@ -46,7 +46,7 @@ export function BlogList({ posts }: BlogListProps) {
           </div>
 
           {/* Contenu de la carte avec fond sombre */}
-          <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
+          <div className="flex flex-col rounded-[14px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
             {/* Thumbnail */}
             <div className="relative aspect-[16/13] w-full overflow-hidden border-b border-border/50">
               <img 
@@ -61,7 +61,7 @@ export function BlogList({ posts }: BlogListProps) {
               </div>
             </div>
 
-            <div className="p-4 flex flex-col h-full">
+            <div className="p-4 flex flex-col">
               <div className="space-y-2">
                 <div className="flex items-center gap-3 text-[9px] text-muted-foreground font-mono uppercase tracking-widest">
                   <span className="flex items-center gap-1">
@@ -82,7 +82,7 @@ export function BlogList({ posts }: BlogListProps) {
                 </p>
               </div>
 
-              <div className="pt-3 mt-auto flex items-center gap-2 text-sm font-bold text-primary group/link">
+              <div className="pt-3 flex items-center gap-2 text-sm font-bold text-primary group/link">
                 <span className="relative">
                   Lire l'article
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
