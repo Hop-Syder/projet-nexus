@@ -49,7 +49,7 @@ export function Navbar() {
               N
             </div>
             <span className="font-bold text-xl tracking-tight hidden sm:block">
-              Nexus<span className="text-primary">Partners</span>
+              Nexus<span className="text-accent">Partners</span>
             </span>
           </Link>
         </div>

@@ -566,7 +566,7 @@ export default function Home() {
       <footer className="relative z-10 border-t border-border/50 py-10 text-center text-sm text-muted-foreground">
         <div className="container mx-auto px-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} Nexus Partners — nexus-partners.xyz
+            © {new Date().getFullYear()} Nexus <span className="text-accent">Partners</span> — nexus-partners.xyz
           </p>
         </div>
       </footer>
