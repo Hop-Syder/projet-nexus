@@ -45,9 +45,6 @@ export function Navbar() {
         {/* Logo / Nom */}
         <div className="pointer-events-auto">
           <Link href="/" className="group flex items-center gap-2">
-            <div className="size-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
-              N
-            </div>
             <span className="font-bold text-xl tracking-tight hidden sm:block">
               Nexus<span className="text-accent">Partners</span>
             </span>
@@ -84,7 +81,7 @@ export function Navbar() {
         {/* Actions Droite */}
         <div className="pointer-events-auto flex items-center gap-2">
           {/* Recherche / Cmd+K */}
-          <button 
+          <button
             onClick={() => {
               const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
               document.dispatchEvent(event);
