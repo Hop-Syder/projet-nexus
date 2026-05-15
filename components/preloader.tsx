@@ -28,11 +28,11 @@ export function Preloader() {
           autoplay
         />
       </div>
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
+        transition={{ delay: 0.5, duration: 1, }}
         className="mt-8 text-center"
       >
         <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary">
