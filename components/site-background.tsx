@@ -24,10 +24,6 @@ export function SiteBackground() {
       aria-hidden
     >
       {/* Image de Fond Principale (Prototype) */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15] dark:opacity-[0.25] mix-blend-luminosity"
-        style={{ backgroundImage: "url('/background-prototypes/background.jpg')" }}
-      />
 
       {/* Grille de fond subtile */}
       <div className="grid-pattern absolute inset-0 opacity-[0.02] dark:opacity-[0.04]" />
