@@ -17,6 +17,7 @@ interface BlogPost {
   author: string;
   excerpt: string;
   category: string;
+  coverImage: string;
 }
 
 interface BlogListProps {
@@ -45,12 +46,22 @@ export function BlogList({ posts }: BlogListProps) {
           </div>
 
           {/* Contenu de la carte avec fond sombre */}
-          <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm p-8 transition-colors group-hover/blog:bg-card/98">
-            {/* Badge Catégorie */}
-            <div className="mb-6 inline-flex w-fit px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/20">
-              {post.category}
+          <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
+            {/* Thumbnail */}
+            <div className="relative aspect-video w-full overflow-hidden border-b border-border/50">
+              <img 
+                src={post.coverImage} 
+                alt={post.title} 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover/blog:scale-110" 
+              />
+              {/* Badge Catégorie */}
+              <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-background/80 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/20">
+                {post.category}
+              </div>
             </div>
-            <div className="space-y-4 flex-grow">
+
+            <div className="p-8 flex flex-col h-full">
+              <div className="space-y-4 flex-grow">
               <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
                 <span className="flex items-center gap-1.5">
                   <Calendar className="size-3.5" />

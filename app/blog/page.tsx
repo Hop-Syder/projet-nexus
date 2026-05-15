@@ -14,7 +14,15 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  const posts = getAllPosts();
+  const posts = getAllPosts().map(post => ({
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    author: post.author,
+    excerpt: post.excerpt,
+    category: post.category,
+    coverImage: post.coverImage
+  }));
 
   return (
     <main className="relative min-h-screen pt-32 pb-20 px-4">

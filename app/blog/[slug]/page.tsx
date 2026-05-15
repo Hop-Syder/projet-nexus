@@ -59,10 +59,15 @@ export default async function PostPage({ params }: Props) {
           </div>
         </header>
 
-        {/* Image de couverture (Optionnelle si on veut la charger) */}
-        {/* <div className="aspect-video w-full rounded-3xl overflow-hidden mb-16 border border-border/50">
-          <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover" />
-        </div> */}
+        {/* Image de couverture */}
+        <div className="relative aspect-video w-full rounded-3xl overflow-hidden mb-16 border border-border/50 shadow-2xl">
+          <img 
+            src={post.coverImage} 
+            alt={post.title} 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+        </div>
 
         {/* Contenu Markdown */}
         <div className="prose-nexus">
