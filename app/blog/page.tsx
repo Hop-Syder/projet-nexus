@@ -8,6 +8,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { SiteBackground } from "@/components/site-background";
 import { ArrowRight, Calendar, User } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const metadata = {
   title: "Blog | Nexus Partners",
@@ -36,17 +37,26 @@ export default function BlogPage() {
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
-              className="group relative flex flex-col h-full rounded-2xl border border-border/40 bg-card/40 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2"
+              className="group/blog relative flex flex-col h-full rounded-2xl p-[1.5px] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:-translate-y-2"
             >
-              {/* Overlay de lumière au survol */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              
-              {/* Badge Catégorie */}
-              <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/20">
-                {post.category}
+              {/* Bordure Animée (Rotating Light Yellow) */}
+              <div className="absolute inset-0 -z-10 overflow-hidden rounded-2xl opacity-0 group-hover/blog:opacity-100 transition-opacity duration-700">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  style={{
+                    background: "conic-gradient(from 90deg at 50% 50%, transparent 0%, transparent 70%, #FBBF24 100%)",
+                  }}
+                  className="absolute inset-[-200%] h-[500%] w-[500%]"
+                />
               </div>
 
-              <div className="p-8 flex flex-col h-full">
+              {/* Contenu de la carte avec fond sombre */}
+              <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm p-8 transition-colors group-hover/blog:bg-card/98">
+                {/* Badge Catégorie */}
+                <div className="mb-6 inline-flex w-fit px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/20">
+                  {post.category}
+                </div>
                 <div className="space-y-4 flex-grow">
                   <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
                     <span className="flex items-center gap-1.5">

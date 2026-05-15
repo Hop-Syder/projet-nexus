@@ -143,7 +143,7 @@ export function ProjectCard({
             animate={{ rotate: 360 }}
             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
             style={{
-              background: "conic-gradient(from 0deg, transparent 0 340deg, #FBBF24 360deg)",
+              background: "conic-gradient(from 90deg at 50% 50%, transparent 0%, transparent 70%, #FBBF24 100%)",
             }}
             className="absolute inset-[-200%] h-[500%] w-[500%]"
           />
