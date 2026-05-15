@@ -46,7 +46,7 @@ export function BlogList({ posts }: BlogListProps) {
           </div>
 
           {/* Contenu de la carte avec fond sombre */}
-          <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
+          <div className="flex flex-col h-full rounded-[12px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
             {/* Thumbnail */}
             <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/50">
               <img 
@@ -61,28 +61,28 @@ export function BlogList({ posts }: BlogListProps) {
               </div>
             </div>
 
-            <div className="p-7 flex flex-col h-full">
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="size-3" />
+            <div className="p-5 flex flex-col h-full">
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-[9px] text-muted-foreground font-mono uppercase tracking-widest">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="size-2.5" />
                     {post.date}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <User className="size-3" />
+                  <span className="flex items-center gap-1">
+                    <User className="size-2.5" />
                     {post.author}
                   </span>
                 </div>
 
-                <h2 className="text-xl font-bold group-hover/blog:text-primary transition-colors leading-snug">
+                <h2 className="text-lg font-bold group-hover/blog:text-primary transition-colors leading-snug">
                   {post.title}
                 </h2>
-                <p className="text-sm text-muted-foreground/80 leading-relaxed line-clamp-2">
+                <p className="text-[13px] text-muted-foreground/80 leading-relaxed line-clamp-2">
                   {post.excerpt}
                 </p>
               </div>
 
-              <div className="pt-6 flex items-center gap-2 text-sm font-bold text-primary group/link">
+              <div className="pt-4 flex items-center gap-2 text-xs font-bold text-primary group/link">
                 <span className="relative">
                   Lire l'article
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
