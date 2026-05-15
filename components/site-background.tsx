@@ -8,15 +8,6 @@ import { motion } from "framer-motion";
  * @description Arrière-plan premium avec orbes de lumière "Aurora" animés
  * @updated 2024-05-15
  */
-const techIcons = [
-  { src: "/background-prototypes/availability-svgrepo-com.svg", pos: { top: "5%", left: "30%" }, size: 90, duration: 32 },
-  { src: "/background-prototypes/cloud-acceleration-svgrepo-com.svg", pos: { top: "45%", right: "2%" }, size: 160, duration: 40 },
-  { src: "/background-prototypes/dns-svgrepo-com.svg", pos: { bottom: "12%", right: "40%" }, size: 100, duration: 25 },
-  { src: "/background-prototypes/host-record-svgrepo-com.svg", pos: { top: "60%", left: "8%" }, size: 130, duration: 35 },
-  { src: "/background-prototypes/intelligent-positioning-svgrepo-com.svg", pos: { bottom: "45%", right: "15%" }, size: 110, duration: 30 },
-  { src: "/background-prototypes/safe-and-stable-svgrepo-com.svg", pos: { top: "15%", right: "25%" }, size: 120, duration: 28 },
-];
-
 export function SiteBackground() {
   return (
     <div
@@ -77,36 +68,6 @@ export function SiteBackground() {
           }}
           className="absolute right-[10%] bottom-[20%] h-[40vh] w-[30vw] rounded-full bg-indigo-500/5 blur-[100px] dark:bg-indigo-500/5"
         />
-      </div>
-
-      {/* Éléments Technologiques Flottants (SVG Prototypes) */}
-      <div className="absolute inset-0 opacity-[0.15] dark:opacity-[0.25]">
-        {techIcons.map((icon, index) => (
-          <motion.img
-            key={index}
-            src={icon.src}
-            alt=""
-            className="grayscale invert dark:invert-0 brightness-0 dark:brightness-100"
-            style={{
-              position: "absolute",
-              width: icon.size,
-              height: icon.size,
-              ...icon.pos,
-              filter: "none",
-            }}
-            animate={{
-              y: [0, -50, 0],
-              x: [0, 30, 0],
-              rotate: [0, 20, 0],
-              opacity: [0.6, 1, 0.6],
-            }}
-            transition={{
-              duration: icon.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
       </div>
 
       {/* Overlay de grain pour texture premium */}
