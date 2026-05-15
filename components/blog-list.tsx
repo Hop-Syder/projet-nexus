@@ -48,7 +48,7 @@ export function BlogList({ posts }: BlogListProps) {
           {/* Contenu de la carte avec fond sombre */}
           <div className="flex flex-col h-full rounded-[14px] bg-card/95 backdrop-blur-sm overflow-hidden transition-colors group-hover/blog:bg-card/98">
             {/* Thumbnail */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-border/50">
+            <div className="relative aspect-[16/13] w-full overflow-hidden border-b border-border/50">
               <img 
                 src={post.coverImage} 
                 alt={post.title} 
