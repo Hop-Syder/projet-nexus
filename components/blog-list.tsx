@@ -61,14 +61,14 @@ export function BlogList({ posts }: BlogListProps) {
               </div>
             </div>
 
-            <div className="p-5 flex flex-col h-full">
-              <div className="space-y-3">
-                <div className="flex items-center gap-4 text-[9px] text-muted-foreground font-mono uppercase tracking-widest">
-                  <span className="flex items-center gap-1.5">
+            <div className="p-4 flex flex-col h-full">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 text-[9px] text-muted-foreground font-mono uppercase tracking-widest">
+                  <span className="flex items-center gap-1">
                     <Calendar className="size-3" />
                     {post.date}
                   </span>
-                  <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-1">
                     <User className="size-3" />
                     {post.author}
                   </span>
@@ -77,12 +77,12 @@ export function BlogList({ posts }: BlogListProps) {
                 <h2 className="text-lg font-bold group-hover/blog:text-primary transition-colors leading-tight line-clamp-2">
                   {post.title}
                 </h2>
-                <p className="text-sm text-muted-foreground/80 leading-relaxed line-clamp-2">
+                <p className="text-sm text-muted-foreground/80 leading-normal line-clamp-2">
                   {post.excerpt}
                 </p>
               </div>
 
-              <div className="pt-4 mt-auto flex items-center gap-2 text-sm font-bold text-primary group/link">
+              <div className="pt-3 mt-auto flex items-center gap-2 text-sm font-bold text-primary group/link">
                 <span className="relative">
                   Lire l'article
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
