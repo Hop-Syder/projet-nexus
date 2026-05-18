@@ -337,7 +337,7 @@ export default function Home() {
               >
                 <span className="sr-only">Nexus Partners — Développeur Web au Bénin & Afrique. </span>
                 <span className="block text-foreground">{t.heroLine1}</span>
-                <span className="block text-gradient-brand">{t.heroLine2}</span>
+                <span className="block bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-600 bg-clip-text text-transparent">{t.heroLine2}</span>
               </h1>
 
               <p className="mt-8 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl md:leading-relaxed">
