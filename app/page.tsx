@@ -515,7 +515,7 @@ export default function Home() {
             }}
             className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10"
           >
-            {localizedProjects.map((project, i) => (
+            {localizedProjects.slice(0, 6).map((project, i) => (
               <motion.div
                 key={project.id}
                 id={project.id}
@@ -533,6 +533,16 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
+
+          <div className="mt-12 flex justify-center">
+            <a
+              href="/projets"
+              className="group inline-flex items-center gap-2 rounded-lg border border-primary/50 bg-primary/10 px-6 py-3 text-sm font-semibold text-primary backdrop-blur-md transition-all hover:bg-primary/20"
+            >
+              {locale === "fr" ? "Voir tous nos projets" : "View all projects"}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
         </section>
 
         <OrderSection locale={locale} />
