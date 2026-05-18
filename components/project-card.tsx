@@ -2,8 +2,7 @@
  * @author @hopsyder
  * @organization Nexus Partners
  * @description Composant d'affichage des projets avec détails et commande WhatsApp
- */
-"use client";
+ */"use client";
 
 import {
   Card,
@@ -14,23 +13,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import type { Project } from "@/lib/types/project";
 import { cn } from "@/lib/utils";
-import {
-  ArrowUpRight,
-  ExternalLink,
-  MessagesSquare,
-  ShoppingCart,
-  Target,
-  Zap,
-  BarChart3,
-  Globe,
-} from "lucide-react";
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ArrowRight, MessagesSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent } from "react";
 
 const whatsappNumber = "2290196701733";
 
@@ -46,235 +34,95 @@ export function ProjectCard({
   const copy =
     locale === "fr"
       ? {
-        positioning: "Positionnement",
-        featuredPositioning: "Direction artistique & Stratégie",
-        defaultPositioning: "Expertise ciblée",
-        open: "Ouvrir",
-        detail: "Voir l’étude de cas",
-        order: "Commander",
-        stack: "Stack",
-        pricing: "Budget indicatif",
-        openSite: "Ouvrir le site",
-        whatsappMessage: `Bonjour Nexus Partners, je souhaite commander le projet "${project.title}". Pouvez-vous me guider sur la suite ?`,
-        close: "Fermer",
-        problem: "Le Défi",
-        solution: "Notre Solution",
-        impact: "Résultat & Impact",
-      }
+          detail: "Voir l'étude de cas",
+          order: "Nous contacter",
+          whatsappMessage: `Bonjour Nexus Partners, je suis intéressé par une solution similaire au projet "${project.title}". Pouvez-vous m'en dire plus ?`,
+        }
       : {
-        positioning: "Positioning",
-        featuredPositioning: "Art Direction & Strategy",
-        defaultPositioning: "Targeted Expertise",
-        open: "Open",
-        detail: "View case study",
-        order: "Order",
-        stack: "Stack",
-        pricing: "Indicative budget",
-        openSite: "Open website",
-        whatsappMessage: `Hello Nexus Partners, I would like to order the "${project.title}" project. Could you guide me on the next steps?`,
-        close: "Close",
-        problem: "The Challenge",
-        solution: "Our Solution",
-        impact: "Result & Impact",
-      };
+          detail: "View case study",
+          order: "Contact us",
+          whatsappMessage: `Hello Nexus Partners, I am interested in a solution similar to the "${project.title}" project. Could you tell me more?`,
+        };
 
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(copy.whatsappMessage)}`;
-  const imageMode = project.imageMode || "cover";
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const x = clientX - left;
-    const y = clientY - top;
-    
-    mouseX.set(x);
-    mouseY.set(y);
-
-    const xPct = x / width - 0.5;
-    const yPct = y / height - 0.5;
-    
-    rotateX.set(yPct * -10);
-    rotateY.set(xPct * 10);
-  }
-
-  function handleMouseLeave() {
-    rotateX.set(0);
-    rotateY.set(0);
-  }
-
-  const rotateXSpring = useSpring(0, { stiffness: 150, damping: 20 });
-  const rotateYSpring = useSpring(0, { stiffness: 150, damping: 20 });
-  
-  const rotateX = useTransform(rotateXSpring, (v) => v);
-  const rotateY = useTransform(rotateYSpring, (v) => v);
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    copy.whatsappMessage
+  )}`;
 
   return (
-    <motion.div
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
-        whileHover={{ y: -12 }}
-        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-        className={cn(
-          "group/shell relative h-full rounded-xl p-[1.5px] perspective-[1000px] overflow-hidden",
-          "bg-border/20 transition-all duration-500",
-          featured && "ring-1 ring-primary/20 shadow-[0_0_40px_-15px_rgba(37,99,235,0.2)]"
-        )}
-      >
-        {/* Bordure Animée (Rotating Light Yellow) */}
-        <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl opacity-0 group-hover/shell:opacity-100 transition-opacity duration-700">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            style={{
-              background: "conic-gradient(from 90deg at 50% 50%, transparent 0%, transparent 70%, #FBBF24 100%)",
-            }}
-            className="absolute inset-[-200%] h-[500%] w-[500%]"
-          />
-        </div>
-
-        {/* Spotlight Effect */}
-        <motion.div
-          className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover/shell:opacity-100"
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                450px circle at ${mouseX}px ${mouseY}px,
-                var(--primary),
-                transparent 80%
-              )
-            `,
-            maskImage: useMotionTemplate`
-              radial-gradient(
-                450px circle at ${mouseX}px ${mouseY}px,
-                black,
-                transparent 80%
-              )
-            `,
-            WebkitMaskImage: useMotionTemplate`
-              radial-gradient(
-                450px circle at ${mouseX}px ${mouseY}px,
-                black,
-                transparent 80%
-              )
-            `,
-          }}
-          aria-hidden="true"
+    <Card className={cn(
+      "group relative flex h-full flex-col overflow-hidden transition-all duration-300 ease-out",
+      "hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5",
+      "border-border/50 bg-card",
+      featured && "ring-1 ring-primary/20"
+    )}>
+      {/* ── Image pleine largeur (Edge to Edge) ── */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+        <Image
+          src={project.thumbnail}
+          alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
+        {/* Badge de catégorie superposé */}
+        <div className="absolute left-4 top-4 z-10">
+          <Badge className="bg-background/80 text-foreground backdrop-blur-md hover:bg-background/90">
+            {project.category}
+          </Badge>
+        </div>
+      </div>
 
-        <Card
-          style={{ transform: "translateZ(20px)" }}
-          className="relative flex h-full flex-col overflow-hidden rounded-[11px] border-0 bg-card/95 shadow-none backdrop-blur-sm transition-colors duration-500 group-hover/shell:bg-card/98 dark:bg-card/90"
+      {/* ── En-tête de la carte ── */}
+      <CardHeader className="p-5 pb-0">
+        <CardTitle className="line-clamp-1 text-xl font-semibold tracking-tight">
+          {project.title}
+        </CardTitle>
+        <CardDescription className="line-clamp-2 mt-2 text-sm leading-relaxed">
+          {project.description}
+        </CardDescription>
+      </CardHeader>
+
+      {/* ── Contenu (Stack technique) ── */}
+      <CardContent className="flex-1 p-5 pt-4">
+        <div className="flex flex-wrap gap-1.5">
+          {project.stack.slice(0, 4).map((tech) => (
+            <Badge key={tech} variant="secondary" className="font-medium text-xs">
+              {tech}
+            </Badge>
+          ))}
+          {project.stack.length > 4 && (
+            <Badge variant="outline" className="text-xs text-muted-foreground">
+              +{project.stack.length - 4}
+            </Badge>
+          )}
+        </div>
+      </CardContent>
+
+      {/* ── Pied de la carte (Actions) ── */}
+      <CardFooter className="flex items-center gap-3 p-5 pt-0">
+        <Link
+          href={`/projets/${project.slug}`}
+          className={cn(
+            buttonVariants({ variant: "default", size: "sm" }),
+            "flex-1 font-medium group/btn"
+          )}
         >
-          <div 
-            className="relative aspect-video w-full overflow-hidden bg-muted"
-          >
-            <Image
-              src={project.thumbnail}
-              alt={project.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-              className={cn(
-                "transition-transform duration-700 ease-out",
-                imageMode === "contain"
-                  ? "object-contain p-4 group-hover/shell:scale-105"
-                  : "object-cover group-hover/shell:scale-105"
-              )}
-            />
-            <div
-              className="absolute inset-x-4 top-4 z-10 flex items-start justify-end gap-3"
-              aria-hidden
-            >
-              <span className="rounded-lg border border-border/40 bg-background/80 px-2.5 py-1 text-[11px] font-bold tracking-tight text-foreground shadow-sm backdrop-blur-md">
-                {project.estimatedPrice}
-              </span>
-            </div>
-          </div>
-
-          <div className="px-4 pt-5">
-            <h3 className="font-heading text-lg font-semibold leading-snug md:text-xl">
-              {project.title}
-            </h3>
-          </div>
-
-          <CardHeader className="relative space-y-2 pb-2 pt-3">
-            <CardDescription className="line-clamp-2 text-sm leading-relaxed">
-              {project.description}
-            </CardDescription>
-            <div className="mt-1">
-              <Badge variant="outline" className="border-primary/20 bg-primary/5 text-[10px] font-semibold text-primary">
-                {project.category}
-              </Badge>
-            </div>
-          </CardHeader>
-
-          <CardContent className="grow pt-0">
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="secondary"
-                  className="rounded-md border border-border/40 bg-muted/30 font-mono text-[9px] uppercase tracking-wider transition-colors group-hover/shell:bg-primary/5 group-hover/shell:text-primary"
-                >
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-            <div className="mt-5 flex items-center justify-between gap-3 border-t border-border/40 pt-4">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {copy.positioning}
-                </p>
-                <p className="mt-1 text-sm font-medium text-foreground/85">
-                  {featured
-                    ? copy.featuredPositioning
-                    : copy.defaultPositioning}
-                </p>
-              </div>
-              <a
-                href={project.projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-8 transition-all hover:gap-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35"
-              >
-                {copy.open}
-                <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover/shell:translate-x-0.5 group-hover/shell:-translate-y-0.5" aria-hidden />
-              </a>
-            </div>
-          </CardContent>
-
-          <CardFooter className="mt-auto border-t border-border/40 bg-muted/20">
-            <div className="flex w-full gap-2">
-              <Link
-                href={`/projets/${project.slug}`}
-                className={cn(
-                  buttonVariants({ variant: "default" }),
-                  "flex-1 cursor-pointer rounded-lg font-semibold transition-all duration-300 active:scale-[0.95] shadow-lg shadow-primary/10 hover:shadow-primary/20"
-                )}
-              >
-                {copy.detail}
-              </Link>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "cursor-pointer rounded-lg border-primary/30 bg-primary/5 px-3 text-primary hover:bg-primary/10"
-                )}
-              >
-                <MessagesSquare className="size-4" />
-                <span className="sr-only">{copy.order}</span>
-              </a>
-            </div>
-          </CardFooter>
-        </Card>
-      </motion.div>
+          {copy.detail}
+          <ArrowRight className="ml-2 size-4 transition-transform group-hover/btn:translate-x-1" />
+        </Link>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "shrink-0 text-muted-foreground hover:text-primary"
+          )}
+          title={copy.order}
+        >
+          <MessagesSquare className="size-4" />
+        </a>
+      </CardFooter>
+    </Card>
   );
 }
