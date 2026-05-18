@@ -10,8 +10,10 @@
 // ──────────────────────────────────
 export interface Project {
   id: string;
+  slug: string;
   title: string;
   category: string; // ex: "SaaS", "E-commerce"
+  date?: string;
   thumbnail: string;
   largeImage: string;
   gallery?: string[];

@@ -33,8 +33,8 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const projects = projectsData as Project[];
@@ -209,7 +209,37 @@ const projectTranslations: Record<
   },
 };
 
+const TILT_MAX = 9;
+const TILT_SPRING = { stiffness: 300, damping: 28 } as const;
+const GLOW_SPRING = { stiffness: 180, damping: 22 } as const;
+
 export default function Home() {
+  const cardRef = useRef<HTMLElement>(null);
+  const normX = useMotionValue(0.5);
+  const normY = useMotionValue(0.5);
+
+  const rawRotateX = useTransform(normY, [0, 1], [TILT_MAX, -TILT_MAX]);
+  const rawRotateY = useTransform(normX, [0, 1], [-TILT_MAX, TILT_MAX]);
+
+  const rotateX = useSpring(rawRotateX, TILT_SPRING);
+  const rotateY = useSpring(rawRotateY, TILT_SPRING);
+  const glowOpacity = useSpring(0, GLOW_SPRING);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    normX.set((e.clientX - rect.left) / rect.width);
+    normY.set((e.clientY - rect.top) / rect.height);
+  };
+
+  const handleMouseEnter = () => glowOpacity.set(1);
+  const handleMouseLeave = () => {
+    normX.set(0.5);
+    normY.set(0.5);
+    glowOpacity.set(0);
+  };
+
   const [locale, setLocale] = useState<"fr" | "en">(() => {
     if (typeof window === "undefined") {
       return "fr";
@@ -343,10 +373,47 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="relative">
+            <motion.aside
+              className="relative group"
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              style={{
+                rotateX,
+                rotateY,
+                transformPerspective: 900,
+              }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+            >
+              {/* Static accent tint — always visible */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-2xl z-0"
+                style={{
+                  background: `radial-gradient(ellipse at 20% 20%, rgba(251, 191, 36, 0.08), transparent 65%)`,
+                }}
+              />
+              
+              {/* Hover glow layer */}
+              <motion.div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-2xl z-0"
+                style={{
+                  opacity: glowOpacity,
+                  background: `radial-gradient(ellipse at 20% 20%, rgba(251, 191, 36, 0.18), transparent 65%)`,
+                }}
+              />
+
               <div className="absolute inset-x-6 top-8 -z-10 h-32 rounded-full bg-primary/18 blur-3xl" />
-              <div className="overflow-hidden rounded-xl border border-border/70 bg-background/70 p-5 shadow-2xl backdrop-blur-2xl">
-                <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4">
+              <div className="relative z-10 overflow-hidden rounded-xl border border-border/70 bg-background/70 p-5 shadow-2xl backdrop-blur-2xl transition-[border-color] duration-300 group-hover:border-primary/30">
+                {/* Shimmer sweep */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[55%] -translate-x-full -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[280%] z-20"
+                />
+
+                <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4 relative z-10">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
                       {t.selectedWork}
@@ -360,23 +427,23 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
-                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-2 relative z-10">
+                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4 group/box overflow-hidden relative">
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {t.references}
                     </p>
-                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight">
+                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight transition-colors group-hover/box:text-primary">
                       {localizedProjects.length}
                     </p>
                     <p className="mt-2 text-sm text-muted-foreground">
                       {t.referencesCaption}
                     </p>
                   </div>
-                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4">
+                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4 group/box overflow-hidden relative">
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {t.stackVisible}
                     </p>
-                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight">
+                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight transition-colors group-hover/box:text-primary">
                       {stackCount}
                     </p>
                     <p className="mt-2 text-sm text-muted-foreground">
@@ -385,10 +452,10 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-lg border border-primary/20 bg-slate-950 p-5 text-slate-50">
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-10 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/35">
-                      <Blocks className="size-4 text-blue-200" />
+                <div className="mt-5 rounded-lg border border-primary/20 bg-slate-950 p-5 text-slate-50 relative group/box overflow-hidden">
+                  <div className="flex items-center gap-3 relative z-10">
+                    <span className="flex size-10 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/35 transition-colors group-hover/box:ring-primary/60 group-hover/box:bg-primary/20">
+                      <Blocks className="size-4 text-primary transition-colors" />
                     </span>
                     <div>
                       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">
@@ -399,14 +466,22 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-5 grid gap-2 text-sm text-slate-300">
+                  <div className="mt-5 grid gap-2 text-sm text-slate-300 relative z-10">
                     {t.positioningPoints.map((point) => (
                       <p key={point}>{point}</p>
                     ))}
                   </div>
+                  {/* Accent bottom line */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-all duration-500 group-hover/box:w-full z-20"
+                    style={{
+                      background: `linear-gradient(to right, rgba(251, 191, 36, 0.5), transparent)`,
+                    }}
+                  />
                 </div>
               </div>
-            </aside>
+            </motion.aside>
           </div>
         </section>
 
@@ -438,7 +513,7 @@ export default function Home() {
                 },
               },
             }}
-            className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:grid-cols-4 xl:gap-10"
+            className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10"
           >
             {localizedProjects.map((project, i) => (
               <motion.div

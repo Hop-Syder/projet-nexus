@@ -11,12 +11,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Home, FileText, Search } from "lucide-react";
+import { Home, FileText, Search, FolderOpen } from "lucide-react";
 import { LanguageToggle } from "./language-toggle";
 import { ModeToggle } from "./mode-toggle";
 
 const navItems = [
   { name: "Accueil", nameEn: "Home", href: "/", icon: Home },
+  { name: "Projets", nameEn: "Projects", href: "/projets", icon: FolderOpen },
   { name: "Blog", nameEn: "Blog", href: "/blog", icon: FileText },
 ];
 
@@ -52,30 +53,50 @@ export function Navbar() {
         </div>
 
         {/* Menu Central */}
-        <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-full bg-background/40 border border-border/50 backdrop-blur-md shadow-xl shadow-black/5">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium transition-colors rounded-full flex items-center gap-2",
-                  isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-pill"
-                    className="absolute inset-0 bg-primary rounded-full"
-                    transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                  />
-                )}
-                <item.icon className={cn("size-4 relative z-10", isActive && "text-primary-foreground")} />
-                <span className="relative z-10">{locale === "fr" ? item.name : item.nameEn}</span>
-              </Link>
-            );
-          })}
+        <div className="pointer-events-auto flex items-center justify-center">
+          <div className="flex items-center justify-between overflow-hidden rounded-xl bg-background/20 backdrop-blur-md border border-border/50 shadow-xl shadow-black/5">
+            {navItems.map((item, index, array) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+              const isFirst = index === 0;
+              const isLast = index === array.length - 1;
+              const prevItem = index > 0 ? array[index - 1] : null;
+              const nextItem = index < array.length - 1 ? array[index + 1] : null;
+
+              const isPrevActive = prevItem
+                ? prevItem.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(prevItem.href)
+                : false;
+
+              const isNextActive = nextItem
+                ? nextItem.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(nextItem.href)
+                : false;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center justify-center gap-2 bg-foreground p-2 px-5 text-sm text-background transition-all duration-300 hover:opacity-90",
+                    isActive
+                      ? "mx-1.5 rounded-xl font-semibold bg-primary text-primary-foreground"
+                      : cn(
+                          (isPrevActive || isFirst) && "rounded-l-xl",
+                          (isNextActive || isLast) && "rounded-r-xl"
+                        )
+                  )}
+                >
+                  <item.icon className="size-4" />
+                  <span>{locale === "fr" ? item.name : item.nameEn}</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/* Actions Droite */}
