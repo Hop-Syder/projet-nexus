@@ -13,16 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { Project } from "@/lib/types/project";
@@ -39,6 +29,7 @@ import {
 } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { MouseEvent } from "react";
 
 const whatsappNumber = "2290196701733";
@@ -120,8 +111,7 @@ export function ProjectCard({
   const rotateY = useTransform(rotateYSpring, (v) => v);
 
   return (
-    <Dialog>
-      <motion.div
+    <motion.div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
@@ -261,14 +251,15 @@ export function ProjectCard({
 
           <CardFooter className="mt-auto border-t border-border/40 bg-muted/20">
             <div className="flex w-full gap-2">
-              <DialogTrigger
+              <Link
+                href={`/projets/${project.slug}`}
                 className={cn(
                   buttonVariants({ variant: "default" }),
                   "flex-1 cursor-pointer rounded-lg font-semibold transition-all duration-300 active:scale-[0.95] shadow-lg shadow-primary/10 hover:shadow-primary/20"
                 )}
               >
                 {copy.detail}
-              </DialogTrigger>
+              </Link>
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -285,124 +276,5 @@ export function ProjectCard({
           </CardFooter>
         </Card>
       </motion.div>
-
-      <DialogContent className="max-h-[90vh] overflow-y-auto border-border/60 bg-card/95 shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)] backdrop-blur-2xl sm:max-w-[640px] dark:border-white/10 dark:shadow-[0_24px_80px_-20px_rgba(37,99,235,0.18)]">
-        <DialogHeader>
-          <DialogTitle className="font-heading text-2xl md:text-3xl">
-            {project.title}
-          </DialogTitle>
-          <DialogDescription className="text-base leading-relaxed text-foreground/85">
-            {project.description}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="grid gap-5 py-1">
-          <div className="relative h-56 w-full overflow-hidden rounded-xl bg-slate-950/8 sm:h-64">
-            <Image
-              src={project.largeImage}
-              alt={project.title}
-              fill
-              sizes="640px"
-              className={cn(
-                imageMode === "contain" ? "object-contain p-4" : "object-cover"
-              )}
-            />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"
-              aria-hidden
-            />
-          </div>
-
-          <div className="grid gap-6 py-4">
-            {project.problem && (
-              <div className="space-y-2">
-                <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
-                  <Target className="size-4" />
-                  {copy.problem}
-                </h4>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {project.problem}
-                </p>
-              </div>
-            )}
-
-            {project.solution && (
-              <div className="space-y-2">
-                <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
-                  <Zap className="size-4" />
-                  {copy.solution}
-                </h4>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {project.solution}
-                </p>
-              </div>
-            )}
-
-            {project.impact && (
-              <div className="space-y-2">
-                <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-green-500">
-                  <BarChart3 className="size-4" />
-                  {copy.impact}
-                </h4>
-                <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-4 text-sm font-medium text-foreground/90">
-                  {project.impact}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center gap-4 rounded-xl border border-primary/25 bg-gradient-to-br from-primary/15 to-primary/5 p-5">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-background/50 ring-1 ring-primary/30">
-              <ShoppingCart className="size-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                {copy.pricing}
-              </p>
-              <p className="inline-block text-xl font-bold tracking-tight text-gradient-brand">
-                {project.estimatedPrice}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <DialogFooter className="mt-2 flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <DialogClose
-            render={<Button variant="outline" className="w-full sm:w-auto" />}
-          >
-            {copy.close}
-          </DialogClose>
-          <Button
-            variant="outline"
-            nativeButton={false}
-            render={
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 sm:w-auto"
-              />
-            }
-          >
-            <MessagesSquare className="size-4" />
-            {copy.order}
-          </Button>
-          <Button
-            nativeButton={false}
-            render={
-              <a
-                href={project.projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 sm:w-auto"
-              />
-            }
-          >
-            <ExternalLink className="size-4" />
-            {copy.openSite}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
   );
 }
