@@ -1,3 +1,8 @@
+/**
+ * @author @hopsyder
+ * @organization Nexus Partners
+ * @description Styles globaux et design tokens du projet
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -39,56 +44,53 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
+  --radius-sm: 0.5rem; /* 8px */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
+  --radius-2xl: 2rem; /* 32px */
 
-/* Nexus Partners — dominante bleu, accent chaud très secondaire */
-:root {
+  /* Nexus Partners Branding */
   --brand-blue: #2563eb;
   --brand-yellow: #ffcc00;
+}
+
+:root {
   --background: #f8fafc;
   --foreground: #0f172a;
   --card: #ffffff;
   --card-foreground: #0f172a;
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-  --primary: #2563eb;
+  --primary: var(--brand-blue);
   --primary-foreground: #ffffff;
   --secondary: #fff7cc;
   --secondary-foreground: #7a5200;
   --muted: #eff6ff;
   --muted-foreground: #475569;
-  --accent: #fff7cc;
+  --accent: var(--brand-yellow);
   --accent-foreground: #1e3a8a;
   --destructive: oklch(0.577 0.245 27.325);
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #2563eb;
+  --ring: var(--brand-blue);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   --sidebar: #f8fafc;
   --sidebar-foreground: #0f172a;
-  --sidebar-primary: #2563eb;
+  --sidebar-primary: var(--brand-blue);
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #fff7cc;
   --sidebar-accent-foreground: #7a5200;
   --sidebar-border: #e2e8f0;
-  --sidebar-ring: #2563eb;
+  --sidebar-ring: var(--brand-blue);
 }
 
 .dark {
-  --brand-blue: #60a5fa;
-  --brand-yellow: #ffcc00;
   --background: #0a1628;
   --foreground: #f8fafc;
   --card: #132337;
@@ -101,7 +103,7 @@
   --secondary-foreground: #ffdd4d;
   --muted: #1e3a5f;
   --muted-foreground: #94a3b8;
-  --accent: #1e3a5f;
+  --accent: var(--brand-yellow);
   --accent-foreground: #ffdd4d;
   --destructive: oklch(0.704 0.191 22.216);
   --border: #1e4976;
@@ -182,4 +184,25 @@
       0 0 0 1px rgb(255 204 0 / 0.18),
       0 18px 45px -22px rgb(255 204 0 / 0.45);
   }
+
+  .grid-pattern {
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Typography Blog */
+  .prose-nexus h1 { @apply text-4xl font-bold mb-8 text-foreground; }
+  .prose-nexus h2 { @apply text-2xl font-bold mt-12 mb-6 text-primary; }
+  .prose-nexus h3 { @apply text-xl font-bold mt-8 mb-4 text-foreground; }
+  .prose-nexus p { @apply text-lg leading-relaxed mb-6 text-muted-foreground; }
+  .prose-nexus ul { @apply list-disc list-inside mb-6 space-y-2 text-muted-foreground; }
+  .prose-nexus ol { @apply list-decimal list-inside mb-6 space-y-2 text-muted-foreground; }
+  .prose-nexus blockquote { @apply border-l-4 border-primary bg-primary/5 p-6 my-8 italic rounded-r-xl; }
+  .prose-nexus strong { @apply font-bold text-foreground; }
+  .prose-nexus hr { @apply border-border/50 my-12; }
+  .prose-nexus a { @apply text-primary underline underline-offset-4 hover:text-accent transition-colors; }
 }

@@ -1,9 +1,23 @@
+/**
+ * @author @hopsyder
+ * @organization Nexus Partners
+ * @description Page d'accueil du catalogue Nexus Partners
+ * @created 2024-05-12
+ * @updated 2024-05-12
+ * 🌐 ceo.nexuspartners.xyz
+ * 📧 daoudaabassichristian@gmail.com
+ */
+// ──────────────────────────────────
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/language-toggle";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ProjectCard } from "@/components/project-card";
+import { ProcessSection } from "@/components/process-section";
+import { OrderSection } from "@/components/order-section";
+import { Preloader } from "@/components/preloader";
+import { FaqSection } from "@/components/faq-section";
 import projectsData from "@/data/projects.json";
 import type { Project } from "@/lib/types/project";
 import {
@@ -19,7 +33,9 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const projects = projectsData as Project[];
 const stackCount = new Set(projects.flatMap((project) => project.stack)).size;
@@ -32,75 +48,79 @@ const copy = {
     heroLine1: "Des interfaces",
     heroLine2: "qui vendent.",
     heroDescription:
-      "Le catalogue officiel des réalisations Nexus Partners : parcours clair, technologies affichées, fourchettes tarifaires et niveau d'exécution visible dès le premier scroll.",
+      "Vous cherchez un développeur africain pour créer votre site web au Bénin ou en Afrique ? Découvrez le catalogue Nexus Partners : des solutions web premium, performantes et sur mesure.",
     primaryCta: "Voir le catalogue",
     secondaryCta: "Demander une proposition",
     chips: [
-      "Direction web lisible",
-      "Build rapide",
-      "Preuve par les livrables",
+      "Expertise UI/UX Élite",
+      "Architecture Next.js Performante",
+      "Design System Scalable",
     ],
-    selectedWork: "selected work",
-    sideTitle: "Studio, conseil et exécution.",
+    selectedWork: "travaux sélectionnés",
+    sideTitle: "Stratégie, design et exécution.",
     references: "Références",
-    referencesCaption: "études de cas prêtes à consulter.",
-    stackVisible: "Stack visible",
-    stackCaption: "briques techniques exposées sans flou.",
+    referencesCaption: "études de cas prêtes à l'audit.",
+    stackVisible: "Stack exposée",
+    stackCaption: "technologies de pointe sans compromis.",
     positioning: "Positionnement",
-    positioningTitle: "Une interface qui assume sa valeur.",
+    positioningTitle: "Une signature visuelle forte.",
     positioningPoints: [
-      "01. Promesse claire avant les détails techniques.",
-      "02. Références montrées comme preuve, pas comme galerie.",
-      "03. Contact direct, sans tunnel ni friction inutile.",
+      "01. Stratégie de conversion avant le code.",
+      "02. Preuve par le livrable et la performance.",
+      "03. Excellence opérationnelle et suivi direct.",
     ],
-    projectsTitle: "Réalisations & références",
+    projectsTitle: "Portfolio & Références",
     projectsDescription:
-      "Chaque carte ouvre une fiche : visuels, stack technique, budget indicatif, puis accès direct au projet en ligne.",
-    contactTitle: "Un projet avec Nexus Partners ?",
+      "Chaque réalisation est une démonstration d'expertise : stack moderne, design sur mesure et optimisation SEO.",
+    contactTitle: "Élevez votre projet digital",
     contactDescription:
-      "Décrivez votre besoin : nous revenons vers vous avec une proposition adaptée, sans engagement.",
-    socialTitle: "Contact & réseaux",
-    site: "Site",
+      "Partagez votre vision : nous concevons une proposition stratégique sur mesure sous 48h.",
+    socialTitle: "Écosystème & Contact",
+    site: "Plateforme",
     email: "Email",
-    phone: "Téléphone",
-    hours: "Horaires",
-    hoursValue: "Lun–Ven : 9h00 – 18h00",
+    phone: "Direct",
+    hours: "Disponibilité",
+    hoursValue: "Lun–Ven : 09:00 – 18:00 (GMT+1)",
   },
   en: {
-    eyebrow: "Nexus Partners catalog",
-    availability: "Limited availability for new web engagements",
+    eyebrow: "Nexus Partners Portfolio",
+    availability: "Limited slots for high-end web mandates",
     heroLine1: "Interfaces",
-    heroLine2: "that sell.",
+    heroLine2: "that convert.",
     heroDescription:
-      "The official Nexus Partners showcase: clear navigation, visible technologies, pricing ranges, and execution quality you can assess from the first scroll.",
-    primaryCta: "Browse the catalog",
-    secondaryCta: "Request a proposal",
-    chips: ["Clear web direction", "Fast build", "Proof through deliverables"],
+      "Looking for an African developer to create your website in Benin or Africa? Explore the Nexus Partners portfolio: premium, high-performance, and custom web solutions.",
+    primaryCta: "Explore Portfolio",
+    secondaryCta: "Request Strategic Quote",
+    chips: [
+      "Elite UI/UX Expertise",
+      "High-Performance Next.js Build",
+      "Scalable Design Systems",
+    ],
     selectedWork: "selected work",
-    sideTitle: "Studio, advisory and execution.",
+    sideTitle: "Strategy, Design & Execution.",
     references: "References",
-    referencesCaption: "case studies ready to review.",
-    stackVisible: "Visible stack",
-    stackCaption: "technical building blocks shown without blur.",
+    referencesCaption: "case studies ready for review.",
+    stackVisible: "Exposed Stack",
+    stackCaption: "cutting-edge tech blocks without blur.",
     positioning: "Positioning",
     positioningTitle: "An interface that owns its value.",
     positioningPoints: [
-      "01. Clear promise before technical details.",
-      "02. References shown as proof, not as a gallery.",
-      "03. Direct contact, no tunnel and no needless friction.",
+      "01. Conversion strategy before technical details.",
+      "02. Proof through deliverables and performance.",
+      "03. Operational excellence and direct support.",
     ],
-    projectsTitle: "Work & references",
+    projectsTitle: "Work & References",
     projectsDescription:
-      "Each card opens a profile: visuals, technical stack, indicative budget, then direct access to the live project.",
-    contactTitle: "A project with Nexus Partners?",
+      "Each card opens a deep dive: advanced tech stack, custom design, and SEO performance metrics.",
+    contactTitle: "Elevate your digital presence",
     contactDescription:
-      "Describe your needs and we will come back with a tailored proposal, with no obligation.",
-    socialTitle: "Contact & social",
-    site: "Website",
+      "Describe your vision and we will come back with a tailored strategic proposal within 48h.",
+    socialTitle: "Ecosystem & Contact",
+    site: "Platform",
     email: "Email",
-    phone: "Phone",
-    hours: "Hours",
-    hoursValue: "Mon–Fri: 9:00 AM – 6:00 PM",
+    phone: "Direct",
+    hours: "Availability",
+    hoursValue: "Mon–Fri: 9:00 AM – 6:00 PM (GMT+1)",
   },
 } as const;
 
@@ -125,7 +145,7 @@ const socialLinks = [
 const projectTranslations: Record<
   string,
   {
-    en: Pick<Project, "title" | "description" | "estimatedPrice">;
+    en: Partial<Project>;
   }
 > = {
   "projet-1": {
@@ -176,9 +196,50 @@ const projectTranslations: Record<
       estimatedPrice: "Quote on request",
     },
   },
+  "projet-7": {
+    en: {
+      title: "AfriPlantes",
+      category: "Community Platform & AI",
+      description: "The Digital Herbarium of Africa. A platform dedicated to preserving and promoting African medicinal flora.",
+      problem: "The gradual disappearance of ancestral knowledge about African herbal medicine due to a lack of structured documentation.",
+      solution: "A complex relational database under Supabase coupled with an immersive 'Nature Premium' interface using fluid animations.",
+      impact: "Registration of over 500 species and creation of an active community for knowledge sharing.",
+      estimatedPrice: "450,000 XOF",
+    },
+  },
 };
 
+const TILT_MAX = 9;
+const TILT_SPRING = { stiffness: 300, damping: 28 } as const;
+const GLOW_SPRING = { stiffness: 180, damping: 22 } as const;
+
 export default function Home() {
+  const cardRef = useRef<HTMLElement>(null);
+  const normX = useMotionValue(0.5);
+  const normY = useMotionValue(0.5);
+
+  const rawRotateX = useTransform(normY, [0, 1], [TILT_MAX, -TILT_MAX]);
+  const rawRotateY = useTransform(normX, [0, 1], [-TILT_MAX, TILT_MAX]);
+
+  const rotateX = useSpring(rawRotateX, TILT_SPRING);
+  const rotateY = useSpring(rawRotateY, TILT_SPRING);
+  const glowOpacity = useSpring(0, GLOW_SPRING);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    normX.set((e.clientX - rect.left) / rect.width);
+    normY.set((e.clientY - rect.top) / rect.height);
+  };
+
+  const handleMouseEnter = () => glowOpacity.set(1);
+  const handleMouseLeave = () => {
+    normX.set(0.5);
+    normY.set(0.5);
+    glowOpacity.set(0);
+  };
+
   const [locale, setLocale] = useState<"fr" | "en">(() => {
     if (typeof window === "undefined") {
       return "fr";
@@ -186,7 +247,24 @@ export default function Home() {
     const saved = window.localStorage.getItem(localeStorageKey);
     return saved === "en" ? "en" : "fr";
   });
+  const [isLoading, setIsLoading] = useState(true);
   const t = copy[locale];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3500); // Augmenté à 3.5s pour une entrée plus immersive
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isLoading]);
+
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -204,49 +282,52 @@ export default function Home() {
   );
 
   return (
-    <div className="relative min-h-screen">
-      <header className="sticky top-4 z-40 px-4 md:top-6">
-        <div className="container mx-auto">
-          <div className="flex items-center justify-between gap-4 rounded-2xl border border-border/60 bg-background/70 px-4 py-3 shadow-[0_8px_32px_-12px_rgba(37,99,235,0.2)] backdrop-blur-xl dark:border-white/10 dark:bg-background/55 dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)]">
-            <div className="flex items-center rounded-2xl border border-[rgb(255_204_0_/_0.22)] bg-[linear-gradient(135deg,rgb(255_204_0_/_0.14),transparent_58%)] px-2 py-1 accent-yellow-glow">
-              <Image
-                src="/logo.png"
-                alt="Nexus Partners"
-                width={44}
-                height={44}
-                className="h-11 w-auto"
-                priority
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <LanguageToggle
-                locale={locale}
-                onToggle={() => setLocale(locale === "fr" ? "en" : "fr")}
-              />
-              <ModeToggle />
-            </div>
-          </div>
-        </div>
-      </header>
+    <>
+      <AnimatePresence>
+        {isLoading && <Preloader />}
+      </AnimatePresence>
 
-      <main className="relative z-10 container mx-auto px-4 pb-24 pt-10 md:pt-14 lg:pt-16">
+      <div className={cn("relative min-h-screen", isLoading ? "hidden" : "block")}>
+      <div className="grid-pattern pointer-events-none absolute inset-0 -z-10 opacity-[0.4] dark:opacity-[0.2]" />
+
+      {/* Éléments de structure en arrière-plan */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-[10%] top-[15%] size-96 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute right-[10%] top-[10%] size-80 rounded-full bg-accent/5 blur-3xl" />
+      </div>
+
+      <main className="relative z-10 container mx-auto px-4 pb-24 pt-32 md:pt-40 lg:pt-48">
         <section
           aria-labelledby="hero-heading"
           className="mb-20 md:mb-28 lg:mb-36"
         >
           <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-10">
             <div>
-              <p className="mb-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.35em] text-[rgb(255_204_0)] md:text-xs">
+              <p className="mb-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.35em] text-accent md:text-xs">
                 <span className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
                 {t.eyebrow}
-                <span className="h-px w-8 bg-gradient-to-l from-transparent to-[rgb(255_204_0_/_0.9)]" />
+                <span className="h-px w-8 bg-gradient-to-l from-transparent to-accent/90" />
               </p>
 
-              <div className="inline-flex items-center gap-2 rounded-full border border-[rgb(255_204_0_/_0.28)] bg-[linear-gradient(135deg,rgb(255_204_0_/_0.14),rgb(255_255_255_/_0.02))] px-3 py-1 text-[11px] font-medium text-foreground/80 shadow-[0_10px_30px_-20px_rgba(255,204,0,0.45)] backdrop-blur-xl">
-                <span className="relative flex size-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[rgb(255_204_0_/_0.55)] motion-reduce:hidden" />
-                  <span className="relative inline-flex size-2.5 rounded-full bg-[rgb(255_204_0)]" />
-                </span>
+              <div className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium text-foreground/80 backdrop-blur-xl">
+                <div className="relative flex size-3 items-center justify-center">
+                  <svg 
+                    viewBox="0 0 48 48" 
+                    className="size-3 fill-accent" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M38,4V0h-4v4H14V0h-4v4H0v11.9v4V48h48V19.9v-4V4H38z M44,44H4V19.9h40V44z M4,15.9V8h6v4h4V8h20v4h4V8h6v7.9H4z"></path> 
+                    <rect height="6" width="6" x="7.5" y="24"></rect> 
+                    <rect height="6" width="6" x="16.667" y="24"></rect> 
+                    <rect height="6" width="6" x="25.583" y="24"></rect> 
+                    <rect height="6" width="6" x="34.5" y="24"></rect> 
+                    <rect height="6" width="6" x="7.5" y="33"></rect> 
+                    <rect height="6" width="6" x="16.667" y="33"></rect> 
+                    <rect height="6" width="6" x="25.583" y="33"></rect> 
+                    <rect height="6" width="6" x="34.5" y="33"></rect> 
+                  </svg>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/30 motion-reduce:hidden" />
+                </div>
                 {t.availability}
               </div>
 
@@ -254,8 +335,9 @@ export default function Home() {
                 id="hero-heading"
                 className="mt-8 font-heading text-[clamp(2.75rem,6vw,5rem)] font-bold leading-[0.98] tracking-tight text-balance"
               >
+                <span className="sr-only">Nexus Partners — Développeur Web au Bénin & Afrique. </span>
                 <span className="block text-foreground">{t.heroLine1}</span>
-                <span className="block text-gradient-brand">{t.heroLine2}</span>
+                <span className="block bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-600 bg-clip-text text-transparent">{t.heroLine2}</span>
               </h1>
 
               <p className="mt-8 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl md:leading-relaxed">
@@ -265,14 +347,14 @@ export default function Home() {
               <div className="mt-10 flex flex-wrap items-center gap-4">
                 <a
                   href="#projects-heading"
-                  className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/50 bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[0_18px_45px_-20px_rgba(37,99,235,0.75)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(37,99,235,0.8)]"
+                  className="group inline-flex cursor-pointer items-center gap-2 rounded-lg border border-primary/50 bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-[0_18px_45px_-20px_rgba(37,99,235,0.75)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(37,99,235,0.8)]"
                 >
                   {t.primaryCta}
                   <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <a
-                  href="#contact-heading"
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/70 bg-background/65 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/70"
+                  href="#order-section"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-border/70 bg-background/65 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/70"
                 >
                   {t.secondaryCta}
                   <ArrowRight className="size-4" />
@@ -283,7 +365,7 @@ export default function Home() {
                 {t.chips.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-border/60 bg-background/55 px-3 py-1.5 text-sm text-muted-foreground backdrop-blur-sm"
+                    className="rounded-lg border border-border/60 bg-background/55 px-3 py-1.5 text-sm text-muted-foreground backdrop-blur-sm"
                   >
                     {item}
                   </span>
@@ -291,10 +373,47 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="relative">
+            <motion.aside
+              className="relative group"
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              style={{
+                rotateX,
+                rotateY,
+                transformPerspective: 900,
+              }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+            >
+              {/* Static accent tint — always visible */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-2xl z-0"
+                style={{
+                  background: `radial-gradient(ellipse at 20% 20%, rgba(251, 191, 36, 0.08), transparent 65%)`,
+                }}
+              />
+              
+              {/* Hover glow layer */}
+              <motion.div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-2xl z-0"
+                style={{
+                  opacity: glowOpacity,
+                  background: `radial-gradient(ellipse at 20% 20%, rgba(251, 191, 36, 0.18), transparent 65%)`,
+                }}
+              />
+
               <div className="absolute inset-x-6 top-8 -z-10 h-32 rounded-full bg-primary/18 blur-3xl" />
-              <div className="overflow-hidden rounded-[1.75rem] border border-border/70 bg-background/70 p-5 shadow-[0_30px_80px_-28px_rgba(15,23,42,0.45)] backdrop-blur-2xl">
-                <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4">
+              <div className="relative z-10 overflow-hidden rounded-xl border border-border/70 bg-background/70 p-5 shadow-2xl backdrop-blur-2xl transition-[border-color] duration-300 group-hover:border-primary/30">
+                {/* Shimmer sweep */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[55%] -translate-x-full -skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[280%] z-20"
+                />
+
+                <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4 relative z-10">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
                       {t.selectedWork}
@@ -303,28 +422,28 @@ export default function Home() {
                       {t.sideTitle}
                     </p>
                   </div>
-                  <span className="rounded-full border border-[rgb(255_204_0_/_0.3)] bg-[rgb(255_204_0_/_0.12)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[rgb(255_204_0)] shadow-[0_10px_28px_-16px_rgba(255,204,0,0.8)]">
+                  <span className="rounded-lg border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
                     2026
                   </span>
                 </div>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
-                  <div className="rounded-2xl border border-border/60 bg-muted/40 p-4">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-2 relative z-10">
+                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4 group/box overflow-hidden relative">
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {t.references}
                     </p>
-                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight">
+                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight transition-colors group-hover/box:text-primary">
                       {localizedProjects.length}
                     </p>
                     <p className="mt-2 text-sm text-muted-foreground">
                       {t.referencesCaption}
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-border/60 bg-muted/40 p-4">
+                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4 group/box overflow-hidden relative">
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                       {t.stackVisible}
                     </p>
-                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight">
+                    <p className="mt-2 font-heading text-3xl font-semibold tracking-tight transition-colors group-hover/box:text-primary">
                       {stackCount}
                     </p>
                     <p className="mt-2 text-sm text-muted-foreground">
@@ -333,10 +452,10 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-[1.35rem] border border-blue-400/20 bg-[linear-gradient(180deg,rgba(15,23,42,0.98),rgba(15,23,42,0.92))] p-5 text-slate-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-10 items-center justify-center rounded-2xl bg-primary/15 ring-1 ring-primary/35">
-                      <Blocks className="size-4 text-blue-200" />
+                <div className="mt-5 rounded-lg border border-primary/20 bg-slate-950 p-5 text-slate-50 relative group/box overflow-hidden">
+                  <div className="flex items-center gap-3 relative z-10">
+                    <span className="flex size-10 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/35 transition-colors group-hover/box:ring-primary/60 group-hover/box:bg-primary/20">
+                      <Blocks className="size-4 text-primary transition-colors" />
                     </span>
                     <div>
                       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">
@@ -347,18 +466,28 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-5 grid gap-2 text-sm text-slate-300">
+                  <div className="mt-5 grid gap-2 text-sm text-slate-300 relative z-10">
                     {t.positioningPoints.map((point) => (
                       <p key={point}>{point}</p>
                     ))}
                   </div>
+                  {/* Accent bottom line */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-all duration-500 group-hover/box:w-full z-20"
+                    style={{
+                      background: `linear-gradient(to right, rgba(251, 191, 36, 0.5), transparent)`,
+                    }}
+                  />
                 </div>
               </div>
-            </aside>
+            </motion.aside>
           </div>
         </section>
 
-        <section aria-labelledby="projects-heading" className="scroll-mt-24">
+        <ProcessSection locale={locale} />
+
+        <section id="portfolio" aria-labelledby="projects-heading" className="scroll-mt-24">
           <div className="mb-12 md:mb-16">
             <h2
               id="projects-heading"
@@ -371,25 +500,61 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:grid-cols-4 xl:gap-10">
-            {localizedProjects.map((project, i) => (
-              <div key={project.id}>
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+            className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10"
+          >
+            {localizedProjects.slice(0, 6).map((project, i) => (
+              <motion.div
+                key={project.id}
+                id={project.id}
+                className="scroll-mt-32"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0 },
+                }}
+              >
                 <ProjectCard
                   project={project}
                   featured={i === 0}
                   locale={locale}
                 />
-              </div>
+              </motion.div>
             ))}
+          </motion.div>
+
+          <div className="mt-12 flex justify-center">
+            <a
+              href="/projets"
+              className="group inline-flex items-center gap-2 rounded-lg border border-primary/50 bg-primary/10 px-6 py-3 text-sm font-semibold text-primary backdrop-blur-md transition-all hover:bg-primary/20"
+            >
+              {locale === "fr" ? "Voir tous nos projets" : "View all projects"}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
         </section>
+
+        <OrderSection locale={locale} />
+
+        <FaqSection locale={locale} />
 
         <section
           aria-labelledby="contact-heading"
           className="relative mt-24 md:mt-32"
         >
-          <div className="absolute inset-0 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/18 via-transparent to-primary/8 blur-3xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/60 p-8 text-center shadow-[0_24px_80px_-32px_rgba(37,99,235,0.35)] backdrop-blur-xl dark:border-white/10 md:p-12 lg:p-14">
+          <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-primary/18 via-transparent to-primary/8 blur-3xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-8 text-center shadow-2xl backdrop-blur-xl dark:border-white/10 md:p-12 lg:p-14">
             <div className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-primary/14 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-12 -left-12 size-40 rounded-full bg-blue-500/20 blur-3xl" />
 
@@ -403,7 +568,7 @@ export default function Home() {
               {t.contactDescription}
             </p>
             <Button
-              className="relative mt-8 cursor-pointer rounded-full px-8 shadow-[0_0_24px_-4px_rgba(37,99,235,0.45)]"
+              className="relative mt-8 cursor-pointer rounded-lg px-8"
               nativeButton={false}
               render={
                 <a
@@ -416,7 +581,7 @@ export default function Home() {
               contact@nexus-partners.xyz
             </Button>
 
-            <div className="relative mx-auto mt-8 max-w-3xl rounded-[1.5rem] border border-border/60 bg-background/45 p-5 text-left backdrop-blur-xl">
+            <div className="relative mx-auto mt-8 max-w-3xl rounded-xl border border-border/60 bg-background/45 p-5 text-left backdrop-blur-xl">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -429,7 +594,7 @@ export default function Home() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-[rgb(255_204_0_/_0.35)] hover:bg-[rgb(255_204_0_/_0.08)]"
+                        className="inline-flex items-center gap-2 rounded-xl border border-border/60 bg-background/60 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent/40 hover:bg-accent/10"
                       >
                         <Icon className="size-4 text-primary" />
                         {label}
@@ -443,7 +608,7 @@ export default function Home() {
                     href="https://nexus-partners.xyz"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-start gap-3 rounded-2xl border border-border/60 bg-background/55 p-3 transition-colors hover:border-[rgb(255_204_0_/_0.35)] hover:bg-[rgb(255_204_0_/_0.08)]"
+                    className="inline-flex items-start gap-3 rounded-lg border border-border/60 bg-background/55 p-3 transition-colors hover:border-accent/40 hover:bg-accent/10"
                   >
                     <Globe className="mt-0.5 size-4 text-primary" />
                     <span>
@@ -453,7 +618,7 @@ export default function Home() {
                   </a>
                   <a
                     href="tel:+2290196701733"
-                    className="inline-flex items-start gap-3 rounded-2xl border border-border/60 bg-background/55 p-3 transition-colors hover:border-[rgb(255_204_0_/_0.35)] hover:bg-[rgb(255_204_0_/_0.08)]"
+                    className="inline-flex items-start gap-3 rounded-lg border border-border/60 bg-background/55 p-3 transition-colors hover:border-accent/40 hover:bg-accent/10"
                   >
                     <Phone className="mt-0.5 size-4 text-primary" />
                     <span>
@@ -463,7 +628,7 @@ export default function Home() {
                   </a>
                   <a
                     href="mailto:contact@nexus-partners.xyz"
-                    className="inline-flex items-start gap-3 rounded-2xl border border-border/60 bg-background/55 p-3 transition-colors hover:border-[rgb(255_204_0_/_0.35)] hover:bg-[rgb(255_204_0_/_0.08)]"
+                    className="inline-flex items-start gap-3 rounded-lg border border-border/60 bg-background/55 p-3 transition-colors hover:border-accent/40 hover:bg-accent/10"
                   >
                     <Mail className="mt-0.5 size-4 text-primary" />
                     <span>
@@ -471,7 +636,7 @@ export default function Home() {
                       <span>contact@nexus-partners.xyz</span>
                     </span>
                   </a>
-                  <div className="inline-flex items-start gap-3 rounded-2xl border border-border/60 bg-background/55 p-3">
+                  <div className="inline-flex items-start gap-3 rounded-lg border border-border/60 bg-background/55 p-3">
                     <Clock3 className="mt-0.5 size-4 text-primary" />
                     <span>
                       <span className="block font-medium text-foreground">{t.hours}</span>
@@ -488,10 +653,11 @@ export default function Home() {
       <footer className="relative z-10 border-t border-border/50 py-10 text-center text-sm text-muted-foreground">
         <div className="container mx-auto px-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} Nexus Partners — nexus-partners.xyz
+            © {new Date().getFullYear()} Nexus <span className="text-accent">Partners</span> — nexus-partners.xyz
           </p>
         </div>
       </footer>
     </div>
+    </>
   );
 }
