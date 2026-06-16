@@ -3,7 +3,7 @@ title: "E-commerce en Afrique : Pourquoi nous privilégions le contact humain au
 date: "2026-06-16"
 author: "@hopsyder"
 excerpt: "Découvrez pourquoi une boutique en ligne premium ne nécessite pas toujours un paiement par carte bancaire. La confiance et le paiement à la livraison priment sur le continent africain."
-coverImage: "/blog-assets/web-africa.jpg"
+coverImage: "/projet-img/iroko-mobilier.png"
 category: "E-commerce & Stratégie"
 ---
 
