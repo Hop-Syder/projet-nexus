@@ -118,5 +118,22 @@
     "impact": "Référencement de plus de 500 espèces et création d'une communauté active de partage de connaissances.",
     "projectUrl": "https://afri-plantes.vercel.app/",
     "estimatedPrice": "450 000 FCFA"
+  },
+  {
+    "id": "projet-8",
+    "slug": "iroko-mobilier",
+    "title": "Iroko Mobilier",
+    "category": "E-commerce & Vitrine de Luxe",
+    "date": "2026-06-15",
+    "thumbnail": "/projet-img/iroko-mobilier.png",
+    "largeImage": "/projet-img/iroko-mobilier.png",
+    "gallery": ["/projet-img/iroko-mobilier.png"],
+    "stack": ["Next.js 16", "React 19", "Tailwind CSS 4", "Prisma", "PostgreSQL", "Framer Motion"],
+    "description": "Plateforme e-commerce vitrine dédiée à la promotion de mobilier haut de gamme fabriqué artisanalement au Bénin avec des essences de bois nobles.",
+    "problem": "Nécessité de présenter le mobilier de luxe de manière immersive tout en proposant une finalisation d'achat directe et personnalisée.",
+    "solution": "Une plateforme e-commerce avec design 'Liquid Glass' et un parcours d'achat qui génère des bons de commande structurés via WhatsApp.",
+    "impact": "Une vitrine digitale luxueuse valorisant l'artisanat béninois et optimisant les conversions directes via WhatsApp.",
+    "projectUrl": "https://nexus-projets-shop.vercel.app/",
+    "estimatedPrice": "450 000 FCFA"
   }
 ]
