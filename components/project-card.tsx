@@ -91,7 +91,12 @@ export function ProjectCard({
         {/* Voile assombrissant au survol */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-80" />
         
-        <div className="absolute left-5 top-5 z-10">
+        <div className="absolute left-5 top-5 z-10 flex flex-wrap gap-2">
+          {featured && (
+            <Badge className="border-accent/50 bg-accent/90 font-semibold text-accent-foreground shadow-sm backdrop-blur-md dark:text-slate-900">
+              ★ {locale === "fr" ? "Projet phare" : "Flagship project"}
+            </Badge>
+          )}
           <Badge className="bg-background/40 text-foreground backdrop-blur-md border-border/50 shadow-sm transition-colors group-hover:bg-primary/20 group-hover:text-primary group-hover:border-primary/30">
             {project.category}
           </Badge>

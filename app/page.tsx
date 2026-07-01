@@ -18,6 +18,9 @@ import { ProcessSection } from "@/components/process-section";
 import { OrderSection } from "@/components/order-section";
 import { Preloader } from "@/components/preloader";
 import { FaqSection } from "@/components/faq-section";
+import { ProjectsMarquee } from "@/components/projects-marquee";
+import { SocialProofSection } from "@/components/social-proof-section";
+import { WhatsappButton } from "@/components/whatsapp-button";
 import projectsData from "@/data/projects.json";
 import type { Project } from "@/lib/types/project";
 import {
@@ -32,7 +35,7 @@ import {
   Phone,
   Users,
 } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -40,6 +43,7 @@ import { cn } from "@/lib/utils";
 const projects = projectsData as Project[];
 const stackCount = new Set(projects.flatMap((project) => project.stack)).size;
 const localeStorageKey = "nexus-partners-locale";
+const preloaderSessionKey = "nexus-partners-preloader-seen";
 
 const copy = {
   fr: {
@@ -196,6 +200,21 @@ const projectTranslations: Record<
       estimatedPrice: "Quote on request",
     },
   },
+  "projet-9": {
+    en: {
+      title: "Wilinwi",
+      category: "SaaS · Fintech & Retail",
+      description:
+        "The operating system of African commerce. Multi-tenant business management SaaS (POS, Stock, CRM, Analytics) built for real-world conditions: Mobile Money, credit sales, and full offline operation.",
+      problem:
+        "West African merchants manage cash, stock, and receivables on paper or WhatsApp: invisible losses, no reliable data, and existing software fails as soon as the Internet connection drops.",
+      solution:
+        "A multi-tenant SaaS platform secured with Row-Level Security, an offline-first sync engine (IndexedDB), a 'Central Warehouse' architecture for multi-store stock dispatch, and a freemium model with zero commission on sales.",
+      impact:
+        "A merchant can check out, track stock, and monitor performance in real time even without a connection — from a single shop to a multi-store network, with a free Starter plan to begin friction-free.",
+      estimatedPrice: "From 7,500 XOF/month",
+    },
+  },
   "projet-7": {
     en: {
       title: "AfriPlantes",
@@ -247,15 +266,24 @@ export default function Home() {
     const saved = window.localStorage.getItem(localeStorageKey);
     return saved === "en" ? "en" : "fr";
   });
-  const [isLoading, setIsLoading] = useState(true);
+  // Preloader court et affiché une seule fois par session : au-delà de 3s
+  // d'attente, plus de la moitié des visiteurs mobiles abandonnent.
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window === "undefined") {
+      return true;
+    }
+    return window.sessionStorage.getItem(preloaderSessionKey) !== "1";
+  });
   const t = copy[locale];
 
   useEffect(() => {
+    if (!isLoading) return;
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3500); // Augmenté à 3.5s pour une entrée plus immersive
+      window.sessionStorage.setItem(preloaderSessionKey, "1");
+    }, 1200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isLoading) {
@@ -280,6 +308,13 @@ export default function Home() {
       }),
     [locale]
   );
+
+  // Wilinwi (produit SaaS phare) en tête de grille sur l'accueil
+  const homeProjects = useMemo(() => {
+    const flagship = localizedProjects.find((p) => p.slug === "wilinwi");
+    const rest = localizedProjects.filter((p) => p.slug !== "wilinwi");
+    return [...(flagship ? [flagship] : []), ...rest].slice(0, 6);
+  }, [localizedProjects]);
 
   return (
     <>
@@ -485,6 +520,8 @@ export default function Home() {
           </div>
         </section>
 
+        <ProjectsMarquee projects={localizedProjects} locale={locale} />
+
         <ProcessSection locale={locale} />
 
         <section id="portfolio" aria-labelledby="projects-heading" className="scroll-mt-24">
@@ -515,11 +552,11 @@ export default function Home() {
             }}
             className="grid grid-cols-1 gap-7 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-9 xl:gap-10"
           >
-            {localizedProjects.slice(0, 6).map((project, i) => (
+            {homeProjects.map((project, i) => (
               <motion.div
                 key={project.id}
                 id={project.id}
-                className="scroll-mt-32"
+                className={cn("scroll-mt-32", i === 0 && "md:col-span-2")}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
                   show: { opacity: 1, y: 0 },
@@ -535,15 +572,17 @@ export default function Home() {
           </motion.div>
 
           <div className="mt-12 flex justify-center">
-            <a
+            <Link
               href="/projets"
               className="group inline-flex items-center gap-2 rounded-lg border border-primary/50 bg-primary/10 px-6 py-3 text-sm font-semibold text-primary backdrop-blur-md transition-all hover:bg-primary/20"
             >
               {locale === "fr" ? "Voir tous nos projets" : "View all projects"}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
           </div>
         </section>
+
+        <SocialProofSection locale={locale} />
 
         <OrderSection locale={locale} />
 
@@ -657,6 +696,8 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      <WhatsappButton locale={locale} />
     </div>
     </>
   );
