@@ -135,5 +135,22 @@
     "impact": "Une vitrine digitale luxueuse valorisant l'artisanat béninois et optimisant les conversions directes via WhatsApp.",
     "projectUrl": "https://nexus-projets-shop.vercel.app/",
     "estimatedPrice": "450 000 FCFA"
+  },
+  {
+    "id": "projet-9",
+    "slug": "wilinwi",
+    "title": "Wilinwi",
+    "category": "SaaS · Fintech & Retail",
+    "date": "2026-06-30",
+    "thumbnail": "/projet-img/wilinwi.png",
+    "largeImage": "/projet-img/wilinwi.png",
+    "gallery": ["/projet-img/wilinwi.png"],
+    "stack": ["Next.js 15", "React 19", "NestJS 11", "PostgreSQL", "Prisma", "Supabase RLS", "Turborepo", "Dexie.js (Offline-First)"],
+    "description": "Le système d'exploitation du commerce africain. SaaS multi-tenant de gestion commerciale (POS, Stock, CRM, Analytics) pensé pour les réalités du terrain : Mobile Money, vente à crédit et fonctionnement 100% hors-ligne.",
+    "problem": "Les commerçants d'Afrique de l'Ouest gèrent caisse, stock et créances sur papier ou WhatsApp : pertes invisibles, aucune donnée fiable, et les logiciels existants échouent dès que la connexion Internet tombe.",
+    "solution": "Une plateforme SaaS multi-tenant sécurisée par Row-Level Security, avec moteur de synchronisation offline-first (IndexedDB), architecture 'Magasin Central' pour le dispatch de stock multi-boutiques, et un modèle freemium sans aucune commission sur les ventes.",
+    "impact": "Un commerçant encaisse, suit son stock et ses performances en temps réel même sans connexion — de la boutique unique au réseau multi-établissements, avec un plan Starter gratuit pour démarrer sans friction.",
+    "projectUrl": "https://wilinwi.nexus-partners.xyz/",
+    "estimatedPrice": "À partir de 7 500 FCFA/mois"
   }
 ]
